@@ -15,7 +15,6 @@
       <th>Labels</th>
       <th>Due date</th>
       <th>Position</th>
-      <th>Comments</th>
       <th>Column</th>
       <th colspan="3"></th>
     </tr>
@@ -28,13 +27,12 @@
         <td><%= task.assignee %></td>
         <td><%= task.title %></td>
         <td><%= task.link %></td>
-        <td><%= task.gitlabid %></td>
+        <td><%= task.gitlab_id %></td>
         <td><%= task.project %></td>
         <td><%= task.state %></td>
         <td><%= task.labels %></td>
         <td><%= task.due_date %></td>
         <td><%= task.position %></td>
-        <td><%= task.comments %></td>
         <td><%= task.column %></td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
