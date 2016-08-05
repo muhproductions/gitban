@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Milestone:</strong>
+  <%= @task.milestone %>
+</p>
+
+<p>
+  <strong>Assignee:</strong>
+  <%= @task.assignee %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @task.title %>
+</p>
+
+<p>
+  <strong>Link:</strong>
+  <%= @task.link %>
+</p>
+
+<p>
+  <strong>Gitlabid:</strong>
+  <%= @task.gitlabid %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @task.project %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @task.state %>
+</p>
+
+<p>
+  <strong>Labels:</strong>
+  <%= @task.labels %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @task.due_date %>
+</p>
+
+<p>
+  <strong>Position:</strong>
+  <%= @task.position %>
+</p>
+
+<p>
+  <strong>Comments:</strong>
+  <%= @task.comments %>
+</p>
+
+<p>
+  <strong>Column:</strong>
+  <%= @task.column %>
+</p>
+
+<%= link_to 'Edit', edit_task_path(@task) %> |
+<%= link_to 'Back', tasks_path %>

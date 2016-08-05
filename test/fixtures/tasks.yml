@@ -1,0 +1,29 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  milestone: one
+  assignee: one
+  title: MyString
+  link: MyString
+  gitlabid: 1
+  project: one
+  state: MyString
+  labels: 
+  due_date: 2016-08-05
+  position: 
+  comments: one
+  column: one
+
+two:
+  milestone: two
+  assignee: two
+  title: MyString
+  link: MyString
+  gitlabid: 1
+  project: two
+  state: MyString
+  labels: 
+  due_date: 2016-08-05
+  position: 
+  comments: two
+  column: two

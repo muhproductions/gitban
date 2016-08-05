@@ -1,0 +1,2 @@
+class Assignee < ApplicationRecord
+end
