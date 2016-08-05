@@ -18,6 +18,8 @@ gem 'jbuilder', '~> 2.5'
 gem "twitter-bootstrap-rails"
 
 gem 'pry-rails'
+#gem 'jquery-turbolinks'
+#gem 'turboboost', github: 'waymondo/turboboost'
 
 gem "font-awesome-rails"
 
