@@ -1,3 +1,6 @@
+
+Ethon.logger = Logger.new(nil)
+
 class Gitlab 
 
   attr_accessor :token, :api_url
