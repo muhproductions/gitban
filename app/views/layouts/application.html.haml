@@ -1,0 +1,43 @@
+%html{lang: :en}
+  %head
+    %meta{content: 'text/html; charset=UTF-8', 'http-equiv': 'Content-Type'}/
+    %meta{charset: 'utf-8'}/
+    %meta{content: 'IE=edge', 'http-equiv': 'X-UA-Compatible'}/
+    %meta{content: 'GitBan', name: :description}/
+    %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
+    %meta{content: '#4caf50', name: 'theme-color'}
+    %title= yield :title
+    = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application'
+    = yield :script
+    = favicon_link_tag
+  %body
+    %nav.navbar.navbar-inverse.navbar-static-top
+      .container
+        .navbar-header
+          %button.navbar-toggle{data: {target: ".navbar-success-collapse", toggle: :collapse}, type: :button}
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: '/'}
+            GitBan
+        .navbar-collapse.collapse.navbar-success-collapse
+          %ul.nav.navbar-nav
+            %li{class: cp("/")}
+              %a{href: '/'} Home
+            %li{class: cp("/boards")}
+              %a{href: '/boards'} Boards
+            %li{class: cp("/projects")}
+              %a{href: '/projects'} Projects
+    .container
+      - if flash[:error]
+        .alert.alert-danger.alert.dismissible
+          %button.close{type: :button, 'data-dismiss': :alert}
+            &times;
+          = flash[:error]
+      - elsif flash[:success]
+        .alert.alert-success.alert.dismissible
+          %button.close{type: :button, 'data-dismiss': :alert}
+            &times;
+          = flash[:success]
+    = yield
