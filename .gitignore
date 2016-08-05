@@ -30,5 +30,6 @@ config/initializers/secret_token.rb
 config/secrets.yml
 
 .env
+*.swp
 
 Gemfile.lock
