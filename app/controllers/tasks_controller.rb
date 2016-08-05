@@ -41,6 +41,9 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
+      params = task_params
+      params[:column_id] = params[:column_id].to_i
+      if @task.update(params)
         unless request.xhr?
           format.html { redirect_to @task, notice: 'Task was successfully updated.' }
           format.json { render :show, status: :ok, location: @task }
