@@ -1,0 +1,40 @@
+.container-fluid
+  .page-header
+    %h1= @board.name
+  .row
+    - @columns.each do |column|
+      %div{class: @colclass}
+        .panel.panel-default
+          .panel-heading
+            = column.id
+            = column.name
+          .panel-body.drag{id: "col-#{column.id}"}
+            - column.tasks.order('position').each do |task|
+              .well{id: task.id}
+                = task.id
+                = task.title
+
+:javascript
+  var drake = dragula($('[id*=col]').toArray());
+  drake.on('drop', function(el, target, source, sibling){
+
+    // Update Task position
+    var task_id = el.id;
+    var task_position = $(el).index();
+    var column_id = target.id.substring(4);
+    console.log("task_id: " + task_id);
+    console.log("task_position: " + task_position);
+    console.log("column_id: " + column_id);
+
+    $.ajax({
+        url: "/tasks/" + task_id,
+        type: "PATCH",
+        data: {task: {
+                 position: task_position,
+                 column_id: column_id},
+               authenticity_token: '#{form_authenticity_token}'},
+        success: function(resp){
+          console.log(resp);
+        }
+    });
+  });
