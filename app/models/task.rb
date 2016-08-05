@@ -6,6 +6,8 @@ class Task < ApplicationRecord
 
   before_save :resort
 
+  serialize :labels
+
   default_scope { order(:position) }
 
   private
