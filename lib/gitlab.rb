@@ -70,3 +70,86 @@ class Gitlab
   end
 
 end
+
+class Gitlab::Sync
+
+  attr_accessor :gitlab
+
+  def initialize gitlab: nil
+    @gitlab = gitlab
+    unless gitlab.instance_of? ::Gitlab
+      raise TypeError, '"gitlab" should be an instance of ::Gitlab'
+    end
+  end
+
+  def sync!
+    ApplicationRecord.transaction do
+      gitlab.flush
+      (gitlab.merge_requests + gitlab.issues).map do |issue|
+        milestone = if ms = issue["milestone"]
+                      milestone!(ms) 
+                    end
+        assignee = if as = issue["assignee"]
+                     assignee!(as)
+                   end
+        project = if p = gitlab.projects.find{ |x| x['id'] == issue['id'] }
+                    project!(p)
+                  end
+        task! issue: issue,
+          ms: milestone,
+          as: assignee,
+          project: project
+      end
+      true
+    end
+  end
+
+  private
+
+  def milestone!(m)
+    x = Milestone.find_or_create_by!(title: m["title"])
+    x.update!(due_date: m['due_date'])
+    x
+  end
+
+  def assignee!(a)
+    x = Assignee.find_or_create_by!(name: a["name"])
+    x.update!(username: a['username'])
+    x
+  end
+
+  def project!(p)
+    Project.find_or_create_by!(name: p["name"], 
+                               namespace: p['namespace']['name'],
+                               link: p['web_url'])
+  end
+
+  def gitlab_internal_id(issue)
+    if issue.has_key?('source_project_id') and 
+      issue.has_key?('target_project_id') and
+      issue.has_key?('merge_status')
+      "!#{issue['iid']}"
+    else
+      "##{issue['iid']}"
+    end
+  end
+
+  def task!(issue: nil, ms: nil, as: nil, project: nil)
+    x = Task.find_or_create_by!(title: issue['title'])
+    x.update!(milestone_id: ms.try(:id), 
+              assignee_id: as.try(:id),
+              gitlab_id: issue['id'],
+              gitlab_internal_id: gitlab_internal_id(issue),
+              project_id: project.try(:id),
+              state: issue['state'],
+              labels: issue['labels'],
+              due_date: issue['due_date'])
+    x
+  end
+
+  def logger
+    Rails.logger
+  end
+
+
+end
