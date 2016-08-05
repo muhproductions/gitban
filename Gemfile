@@ -21,6 +21,9 @@ gem 'pry-rails'
 gem 'jquery-turbolinks'
 gem 'turboboost', github: 'waymondo/turboboost'
 
+gem 'oj'
+gem 'typhoeus'
+
 gem "font-awesome-rails"
 
 group :development, :test do
