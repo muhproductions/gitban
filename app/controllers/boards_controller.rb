@@ -11,7 +11,7 @@ class BoardsController < ApplicationController
   # GET /boards/1.json
   def show
     @columns = @board.columns
-    @colclass = "col-md-#{12 / @columns.size}" rescue nil
+    @colclass = "col s#{12 / @columns.size}" rescue nil
   end
 
   # GET /boards/new
