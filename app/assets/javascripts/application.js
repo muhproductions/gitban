@@ -15,3 +15,8 @@
 //= require materialize-sprockets
 //= require turbolinks
 //= require_tree .
+
+
+document.addEventListener("turbolinks:load", function() {
+  $('select').material_select();
+})
