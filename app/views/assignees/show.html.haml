@@ -1,10 +1,11 @@
 %p#notice= notice
-%p
-  %strong Name:
-  = @assignee.name
-%p
-  %strong Username:
-  = @assignee.username
-= link_to 'Edit', edit_assignee_path(@assignee)
-|
-= link_to 'Back', assignees_path
+.container
+  %p
+    %strong Name:
+    = @assignee.name
+  %p
+    %strong Username:
+    = @assignee.username
+  = link_to 'Edit', edit_assignee_path(@assignee)
+  |
+  = link_to 'Back', assignees_path

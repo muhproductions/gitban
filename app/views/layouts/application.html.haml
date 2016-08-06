@@ -12,6 +12,7 @@
     = yield :script
     = favicon_link_tag
   %main
+
     %nav.blue
       .container
         .nav-wrapper
@@ -21,8 +22,14 @@
           %ul.right.hide-on-med-and-down
             %li{class: cp("/")}
               %a{href: '/'} Home
+            %li{class: cp("/assignees")}
+              %a{href: '/assignees'} Assignees
             %li{class: cp("/boards")}
               %a{href: '/boards'} Boards
+            %li{class: cp("/columns")}
+              %a{href: '/columns'} Columns
+            %li{class: cp("/milestones")}
+              %a{href: '/milestones'} Milestones
             %li{class: cp("/projects")}
               %a{href: '/projects'} Projects
             %li{class: cp("/tasks")}

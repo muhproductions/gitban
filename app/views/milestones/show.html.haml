@@ -1,10 +1,11 @@
 %p#notice= notice
-%p
-  %strong Title:
-  = @milestone.title
-%p
-  %strong Due date:
-  = @milestone.due_date
-= link_to 'Edit', edit_milestone_path(@milestone)
-|
-= link_to 'Back', milestones_path
+.container
+  %p
+    %strong Title:
+    = @milestone.title
+  %p
+    %strong Due date:
+    = @milestone.due_date
+  = link_to 'Edit', edit_milestone_path(@milestone)
+  |
+  = link_to 'Back', milestones_path

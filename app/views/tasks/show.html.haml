@@ -1,37 +1,38 @@
-%p#notice= notice
-%p
-  %strong Milestone:
-  = @task.milestone
-%p
-  %strong Assignee:
-  = @task.assignee
-%p
-  %strong Title:
-  = @task.title
-%p
-  %strong Link:
-  = @task.link
-%p
-  %strong Gitlabid:
-  = @task.gitlab_id
-%p
-  %strong Project:
-  = @task.project
-%p
-  %strong State:
-  = @task.state
-%p
-  %strong Labels:
-  = @task.labels
-%p
-  %strong Due date:
-  = @task.due_date
-%p
-  %strong Position:
-  = @task.position
-%p
-  %strong Column:
-  = @task.column
-= link_to 'Edit', edit_task_path(@task)
-|
-= link_to 'Back', tasks_path
+.container
+  %p#notice= notice
+  %p
+    %strong Milestone:
+    = @task.milestone
+  %p
+    %strong Assignee:
+    = @task.assignee
+  %p
+    %strong Title:
+    = @task.title
+  %p
+    %strong Link:
+    = @task.link
+  %p
+    %strong Gitlabid:
+    = @task.gitlab_id
+  %p
+    %strong Project:
+    = @task.project
+  %p
+    %strong State:
+    = @task.state
+  %p
+    %strong Labels:
+    = @task.labels
+  %p
+    %strong Due date:
+    = @task.due_date
+  %p
+    %strong Position:
+    = @task.position
+  %p
+    %strong Column:
+    = @task.column
+  = link_to 'Edit', edit_task_path(@task)
+  |
+  = link_to 'Back', tasks_path

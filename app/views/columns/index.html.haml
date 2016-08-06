@@ -1,22 +1,23 @@
 %p#notice= notice
-%h1 Columns
-%table
-  %thead
-    %tr
-      %th Name
-      %th Min
-      %th Max
-      %th Board
-      %th{:colspan => "3"}
-  %tbody
-    - @columns.each do |column|
+.container
+  %h1 Columns
+  %table
+    %thead
       %tr
-        %td= column.name
-        %td= column.min
-        %td= column.max
-        %td= column.board
-        %td= link_to 'Show', column
-        %td= link_to 'Edit', edit_column_path(column)
-        %td= link_to 'Destroy', column, method: :delete, data: { confirm: 'Are you sure?' }
-%br/
-= link_to 'New Column', new_column_path
+        %th Name
+        %th Min
+        %th Max
+        %th Board
+        %th{:colspan => "3"}
+    %tbody
+      - @columns.each do |column|
+        %tr
+          %td= column.name
+          %td= column.min
+          %td= column.max
+          %td= column.board
+          %td= link_to 'Show', column
+          %td= link_to 'Edit', edit_column_path(column)
+          %td= link_to 'Destroy', column, method: :delete, data: { confirm: 'Are you sure?' }
+  %br/
+  = link_to 'New Column', new_column_path

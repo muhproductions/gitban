@@ -1,16 +1,17 @@
 %p#notice= notice
-%p
-  %strong Name:
-  = @column.name
-%p
-  %strong Min:
-  = @column.min
-%p
-  %strong Max:
-  = @column.max
-%p
-  %strong Board:
-  = @column.board
-= link_to 'Edit', edit_column_path(@column)
-|
-= link_to 'Back', columns_path
+.container
+  %p
+    %strong Name:
+    = @column.name
+  %p
+    %strong Min:
+    = @column.min
+  %p
+    %strong Max:
+    = @column.max
+  %p
+    %strong Board:
+    = @column.board
+  = link_to 'Edit', edit_column_path(@column)
+  |
+  = link_to 'Back', columns_path
