@@ -1,4 +1,4 @@
-![GitBanLogo](gitban_logo.png?raw=true)
+![GitBanLogo](logo.png?raw=true)
 # README
 
 This README would normally document whatever steps are necessary to get the
