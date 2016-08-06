@@ -40,8 +40,22 @@
           = flash[:success]
     = yield
   %footer.page-footer.blue
+    .container
+      .row
+        .col.l6.s12
+          %h5.white-text GitBan
+          %p.grey-text-text-lighten-4
+            GitBan is designed to make KanBan as easy as possible with GitLab while handling all tasks via GitLab.
+        .col.l4.offset-l2.s12
+          %h5.white-text More Stuff
+          %ul
+            %li
+              %a.grey-text.text-lighten-3{href: 'https://github.com/muhproductions/gitban'} GitHub
     .footer-copyright
       .container
-        © 2016 GitBan
-        %a.grey-text.text-lighten-4.right{href: 'https://github.com/muhproductions/gitban'} GitHub
+        © 2016 muhproductions
+        %a.grey-text.text-lighten-4.right{href: 'https://github.com/muhproductions'}
+          muhproductions
+          %i.fa.fa-heart
+          GitHub
   
