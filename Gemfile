@@ -15,7 +15,7 @@ gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
-gem "twitter-bootstrap-rails"
+gem 'materialize-sass'
 
 gem 'pry-rails'
 gem 'jquery-turbolinks'
