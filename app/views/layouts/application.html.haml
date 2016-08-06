@@ -13,18 +13,20 @@
     = favicon_link_tag
   %main
     %nav.blue
-      .nav-wrapper
-        %a.brand-logo{href: '/'}
-          GitBan
-        %ul.right.hide-on-med-and-down
-          %li{class: cp("/")}
-            %a{href: '/'} Home
-          %li{class: cp("/boards")}
-            %a{href: '/boards'} Boards
-          %li{class: cp("/projects")}
-            %a{href: '/projects'} Projects
-          %li{class: cp("/tasks")}
-            %a{href: '/tasks'} Tasks
+      .container
+        .nav-wrapper
+          %a.brand-logo{href: '/'}
+            %i.fa.fa-gitlab
+            GitBan
+          %ul.right.hide-on-med-and-down
+            %li{class: cp("/")}
+              %a{href: '/'} Home
+            %li{class: cp("/boards")}
+              %a{href: '/boards'} Boards
+            %li{class: cp("/projects")}
+              %a{href: '/projects'} Projects
+            %li{class: cp("/tasks")}
+              %a{href: '/tasks'} Tasks
     .container
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
