@@ -1,0 +1,44 @@
+= form_for(task) do |f|
+  - if task.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(task.errors.count, "error")
+        prohibited this task from being saved:
+      %ul
+        - task.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :milestone_id
+    = f.text_field :milestone_id
+  .field
+    = f.label :assignee_id
+    = f.text_field :assignee_id
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :link
+    = f.text_field :link
+  .field
+    = f.label :gitlab_id
+    = f.number_field :gitlab_id
+  .field
+    = f.label :project_id
+    = f.text_field :project_id
+  .field
+    = f.label :state
+    = f.text_field :state
+  .field
+    = f.label :labels
+    = f.text_field :labels
+  .field
+    = f.label :due_date
+    = f.date_select :due_date
+  .field
+    = f.label :position
+    = f.text_field :position
+  .field
+    = f.label :column_id
+    = f.text_field :column_id
+  .actions
+    = f.submit

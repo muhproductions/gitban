@@ -1,0 +1,17 @@
+= form_for(assignee) do |f|
+  - if assignee.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(assignee.errors.count, "error")
+        prohibited this assignee from being saved:
+      %ul
+        - assignee.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :name
+    = f.text_field :name
+  .field
+    = f.label :username
+    = f.text_field :username
+  .actions
+    = f.submit

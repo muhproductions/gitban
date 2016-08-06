@@ -1,0 +1,17 @@
+= form_for(milestone) do |f|
+  - if milestone.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(milestone.errors.count, "error")
+        prohibited this milestone from being saved:
+      %ul
+        - milestone.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = f.label :title
+    = f.text_field :title
+  .field
+    = f.label :due_date
+    = f.date_select :due_date
+  .actions
+    = f.submit
