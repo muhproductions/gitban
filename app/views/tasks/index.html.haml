@@ -1,0 +1,8 @@
+.container
+  .page-header
+    %h1
+      Tasks
+      %small.text-muted Tasks that are not assigned to any board are listed here
+
+  - @tasks_unassigned.each do |task|
+    = render partial: 'shared/task_card_assign', locals: {task: task}

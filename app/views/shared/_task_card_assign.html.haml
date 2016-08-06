@@ -1,0 +1,10 @@
+.card.blue-grey.darken-1
+  .card-content.white-text
+    %span.card-title
+      .small= task.title
+    %p
+  .card-action
+    = form_for task, turboboost: true do |f|
+      .input-field
+        = f.select :column_id, grouped_options_for_select(@grouped_options)
+        = f.submit class: :btn
