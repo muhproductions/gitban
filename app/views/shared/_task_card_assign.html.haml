@@ -1,8 +1,24 @@
 .card.blue-grey.darken-1
   .card-content.white-text
     %span.card-title
-      .small= task.title
+      .chip.blue.right=task.state
+      .small.truncate= task.title
     = form_for task do |f|
-      .input-field
-        = f.select :column_id, grouped_options_for_select(@grouped_options)
-        = f.submit class: 'btn pull-right'
+      .row
+        .input-field.col.s10
+          = f.select :column_id, grouped_options_for_select(@grouped_options)
+        .input-field.col.s2
+          = f.submit class: :btn
+    .card-action
+      .row
+        - if task.assignee
+          .chip.right
+            %img{src: task.assignee.image_path}
+            = task.assignee.name
+        - task.labels.to_a.each do |label|
+          .chip.teal= label
+      .row
+        - if task.milestone
+          .chip.red
+            = task.milestone.title
+            = "(#{task.milestone.due_date})"
