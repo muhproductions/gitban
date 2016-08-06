@@ -1,20 +1,23 @@
 .container-fluid
-  .page-header
-    %h1= @board.name
+  .container
+    .page-header
+      %h1= @board.name
   .row
     - @columns.each do |column|
       %div{class: @colclass}
         .card
           .card-content
             .card-title
-              = column.id
               = column.name
+              %hr
             .drag{id: "col-#{column.id}"}
               - column.tasks.order('position').each do |task|
                 = render partial: 'shared/task_card', locals: { task: task}
 
 :javascript
-  var drake = dragula($('[id*=col]').toArray());
+  var drake = dragula($('[id*=col]').toArray(), {
+    removeOnSpill: true
+  });
   drake.on('drop', function(el, target, source, sibling){
 
     // Update Task position
@@ -31,6 +34,19 @@
         data: {task: {
                  position: task_position,
                  column_id: column_id},
+               authenticity_token: '#{form_authenticity_token}'},
+        success: function(resp){
+          console.log(resp);
+        }
+    });
+  });
+  drake.on('remove', function(el, container, source) {
+    var task_id = el.id
+    $.ajax({
+        url: "/tasks/" + task_id,
+        type: "PATCH",
+        data: {task: {
+                 column_id: null},
                authenticity_token: '#{form_authenticity_token}'},
         success: function(resp){
           console.log(resp);

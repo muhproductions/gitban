@@ -46,7 +46,11 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       params = task_params
-      params[:column_id] = params[:column_id].to_i
+      if params[:column_id] && params[:column_id].empty?
+        params[:column_id] = nil
+      elsif params[:column_id]
+        params[:column_id] = params[:column_id].to_i
+      end
       if @task.update(params)
         unless request.xhr?
           format.html { redirect_to @task, notice: 'Task was successfully updated.' }
