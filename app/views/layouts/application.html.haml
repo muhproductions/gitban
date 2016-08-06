@@ -11,26 +11,20 @@
     = javascript_include_tag 'application'
     = yield :script
     = favicon_link_tag
-  %body
-    %nav.navbar.navbar-inverse.navbar-static-top
-      .container
-        .navbar-header
-          %button.navbar-toggle{data: {target: ".navbar-success-collapse", toggle: :collapse}, type: :button}
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          %a.navbar-brand{href: '/'}
-            GitBan
-        .navbar-collapse.collapse.navbar-success-collapse
-          %ul.nav.navbar-nav
-            %li{class: cp("/")}
-              %a{href: '/'} Home
-            %li{class: cp("/boards")}
-              %a{href: '/boards'} Boards
-            %li{class: cp("/projects")}
-              %a{href: '/projects'} Projects
-            %li{class: cp("/tasks")}
-              %a{href: '/tasks'} Tasks
+  %main
+    %nav.blue
+      .nav-wrapper
+        %a.brand-logo{href: '/'}
+          GitBan
+        %ul.right.hide-on-med-and-down
+          %li{class: cp("/")}
+            %a{href: '/'} Home
+          %li{class: cp("/boards")}
+            %a{href: '/boards'} Boards
+          %li{class: cp("/projects")}
+            %a{href: '/projects'} Projects
+          %li{class: cp("/tasks")}
+            %a{href: '/tasks'} Tasks
     .container
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
@@ -43,3 +37,9 @@
             &times;
           = flash[:success]
     = yield
+  %footer.page-footer.blue
+    .footer-copyright
+      .container
+        © 2016 GitBan
+        %a.grey-text.text-lighten-4.right{href: 'https://github.com/muhproductions/gitban'} GitHub
+  
