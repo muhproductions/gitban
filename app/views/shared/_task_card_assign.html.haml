@@ -2,9 +2,7 @@
   .card-content.white-text
     %span.card-title
       .small= task.title
-    %p
-  .card-action
-    = form_for task, turboboost: true do |f|
+    = form_for task do |f|
       .input-field
         = f.select :column_id, grouped_options_for_select(@grouped_options)
-        = f.submit class: :btn
+        = f.submit class: 'btn pull-right'
