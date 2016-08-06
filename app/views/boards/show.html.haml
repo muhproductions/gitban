@@ -4,15 +4,14 @@
   .row
     - @columns.each do |column|
       %div{class: @colclass}
-        .panel.panel-default
-          .panel-heading
-            = column.id
-            = column.name
-          .panel-body.drag{id: "col-#{column.id}"}
-            - column.tasks.order('position').each do |task|
-              .well{id: task.id}
-                = task.id
-                = task.title
+        .card
+          .card-content
+            .card-title
+              = column.id
+              = column.name
+            .drag{id: "col-#{column.id}"}
+              - column.tasks.order('position').each do |task|
+                = render partial: 'shared/task_card', locals: { task: task}
 
 :javascript
   var drake = dragula($('[id*=col]').toArray());
