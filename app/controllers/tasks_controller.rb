@@ -1,5 +1,6 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+  after_action :resort, only: [:update]
 
   # GET /tasks
   # GET /tasks.json
@@ -45,13 +46,13 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   def update
     respond_to do |format|
-      params = task_params
-      if params[:column_id] && params[:column_id].empty?
-        params[:column_id] = nil
-      elsif params[:column_id]
-        params[:column_id] = params[:column_id].to_i
+      task_data = task_params
+      if task_data[:column_id] && task_data[:column_id].empty?
+        task_data[:column_id] = nil
+      elsif task_data[:column_id]
+        task_data[:column_id] = task_data[:column_id].to_i
       end
-      if @task.update(params)
+      if @task.update(task_data)
         unless request.xhr?
           format.html { redirect_to @task, notice: 'Task was successfully updated.' }
           format.json { render :show, status: :ok, location: @task }
@@ -86,5 +87,16 @@ class TasksController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
       params.require(:task).permit(:milestone_id, :assignee_id, :title, :link, :gitlab_id, :project_id, :state, :labels, :due_date, :position, :comments_id, :column_id)
+    end
+
+    def resort
+      return unless params[:positions]
+      Task.transaction do
+        params[:positions].each do |col, el|
+          el.each_with_index do |e, i|
+            Task.find(e).update position: i
+          end
+        end
+      end
     end
 end
