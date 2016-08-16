@@ -1,7 +1,7 @@
 
 Ethon.logger = Logger.new(nil)
 
-class Gitlab 
+class Gitlab
 
   attr_accessor :token, :api_url
 
@@ -10,20 +10,25 @@ class Gitlab
   end
 
   def groups
-    @groups ||= api('groups') 
+    @groups ||= api('groups').compact
   end
 
   def projects
-    @projects ||= api("projects/all")
+    @projects ||= api("projects/all").compact
   end
 
-  def issues 
-    @issues ||= groups.flat_map do |group|
-      api "groups/#{group['id']}/issues" 
-    end.compact
+  def issues
+    @issues ||= begin
+      @issues = groups.flat_map do |group|
+        api "groups/#{group['id']}/issues"
+      end.compact
+      @issues += groups.flat_map do |group|
+        api "groups/#{group['id']}/issues", params: { state: :closed }
+      end.compact
+    end
   end
 
-  def merge_requests 
+  def merge_requests
     @mr ||= projects.flat_map do |project|
       api "projects/#{project['id']}/merge_requests"
     end.compact
@@ -33,21 +38,21 @@ class Gitlab
     @mr, @issues, @projects, @groups = []
   end
 
-  def api path
+  def api path, params: {}
     api_return = []
     hydra = Typhoeus::Hydra.new
     r = Typhoeus::Request.new(
-      "#{api_url}/#{path}", 
-      params: { private_token: token }
+      "#{api_url}/#{path}",
+      params: params.merge({ private_token: token })
     )
     api_return << load_json(r.run)
     requests = []
     (r.response.headers["X-Total-Pages"].to_i - 1).times do |i|
-      re = Typhoeus::Request.new("#{api_url}/#{path}", 
-                                 params: { 
+      re = Typhoeus::Request.new("#{api_url}/#{path}",
+                                 params: params.merge({
                                    private_token: token,
-                                   page: i + 2 
-                                 })
+                                   page: i + 2
+                                 }))
       requests << re
       hydra.queue re
     end
@@ -87,12 +92,12 @@ class Gitlab::Sync
       gitlab.flush
       (gitlab.merge_requests + gitlab.issues).map do |issue|
         milestone = if ms = issue["milestone"]
-                      milestone!(ms) 
+                      milestone!(ms)
                     end
         assignee = if as = issue["assignee"]
                      assignee!(as)
                    end
-        project = if p = gitlab.projects.find{ |x| x['id'] == issue['id'] }
+        project = if p = gitlab.projects.find{ |x| x['id'] == issue['project_id'] }
                     project!(p)
                   end
         task! issue: issue,
