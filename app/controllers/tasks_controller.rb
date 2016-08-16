@@ -54,7 +54,7 @@ class TasksController < ApplicationController
       end
       if @task.update(task_data)
         unless request.xhr?
-          format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+          format.html { redirect_back fallback_location: :tasks }
           format.json { render :show, status: :ok, location: @task }
         else
           return :ok
