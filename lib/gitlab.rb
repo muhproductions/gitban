@@ -135,10 +135,10 @@ class Gitlab::Sync
   end
 
   def task!(issue: nil, ms: nil, as: nil, project: nil)
-    x = Task.find_or_create_by!(title: issue['title'])
-    x.update!(milestone_id: ms.try(:id), 
+    x = Task.find_or_create_by!(gitlab_id: issue['id'])
+    x.update!(milestone_id: ms.try(:id),
               assignee_id: as.try(:id),
-              gitlab_id: issue['id'],
+              title: issue['title'],
               gitlab_internal_id: gitlab_internal_id(issue),
               project_id: project.try(:id),
               state: issue['state'],
