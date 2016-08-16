@@ -98,5 +98,6 @@ class TasksController < ApplicationController
           end
         end
       end
+      ActionCable.server.broadcast('boards', task: @task)
     end
 end
