@@ -1,18 +1,23 @@
-.card.hoverable.blue-grey.darken-1{id: task.id}
-  .card-content.white-text
-    %span.card-title
-      .chip.blue.right=task.state
-      .small.truncate= task.title
+.card.hoverable.blue.lighten-2{id: task.id}
+  .card-content
+    - if task.milestone
+      %span.card-title.truncate.tooltipped{data: { position: :top,
+          delay: 50,
+          tooltip: "#{task.milestone.title} (#{task.milestone.due_date})"}}
+        = task.title
+    - else
+      %span.card-title.truncate
+        = task.title
   .card-action
-    .row
-      - if task.assignee
-        .chip.right
-          %img{src: task.assignee.image_path}
-          = task.assignee.name
-      - task.labels.to_a.each do |label|
-        .chip.teal= label
-    .row
-      - if task.milestone
-        .chip.red
-          = task.milestone.title
-          = "(#{task.milestone.due_date})"
+    - if task.assignee
+      %p.truncate
+        %i.fa.fa-user.fa-fw
+        = task.assignee.name
+    - if task.labels.to_a.any?
+      %p.truncate
+        %i.fa.fa-tags.fa-fw
+        = task.labels.to_a.inspect
+    - if task.project
+      %p.truncate
+        %i.fa.fa-code-fork.fa-fw
+        = task.project.name

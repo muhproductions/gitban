@@ -8,17 +8,33 @@
         .input-field.col.s10
           = f.select :column_id, grouped_options_for_select(@grouped_options)
         .input-field.col.s2
-          = f.submit class: :btn
+          = f.button class: 'btn-floating waves-effect' do
+            %i.fa.fa-plus
     .card-action
       .row
         - if task.assignee
           .chip.right
             %img{src: task.assignee.image_path}
             = task.assignee.name
-        - task.labels.to_a.each do |label|
-          .chip.teal= label
+        - else
+          .chip.green.right
+            No Assignee
+        - if task.labels.to_a.any?
+          - task.labels.to_a.each do |label|
+            .chip.teal= label
+        - else
+          .chip.green No labels
       .row
         - if task.milestone
           .chip.red
             = task.milestone.title
             = "(#{task.milestone.due_date})"
+        - else
+          .chip.green
+            No Milestone
+        - if task.project
+          .chip.red.right
+            = task.project.name
+        - else
+          .chip.green.right
+            No Project

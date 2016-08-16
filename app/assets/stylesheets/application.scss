@@ -27,4 +27,21 @@ main {
 .drag {
   min-height: 50px;
 }
+.card .card-title {
+  font-size: 14px;
+}
+.card .card-content {
+  padding: 0px 5px 2px 5px;
+}
 
+.card .card-content .card-title {
+  line-height: inherit;
+}
+
+.card .card-action {
+  padding: 5px;
+  border-top: 2px dotted;
+}
+.card-action .chip {
+  font-size: 10px;
+}

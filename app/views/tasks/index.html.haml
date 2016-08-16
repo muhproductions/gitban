@@ -1,11 +1,12 @@
-.container
-  .page-header
-    %h3.text-muted Tasks that are not assigned to any board are listed here
-  %p
-    These tasks seemed to be newly imported from GitLab;
-    or you just decided to remove them from your board.
-  %p
-    However, you can - and should - reassign them to a existing board.
+.page-header
+  %h3.text-muted Tasks that are not assigned to any board are listed here
+%p
+  These tasks seemed to be newly imported from GitLab;
+  or you just decided to remove them from your board.
+%p
+  However, you can - and should - reassign them to a existing board.
+- @tasks_unassigned.each_slice(4) do |tasks|
   .row
-    - @tasks_unassigned.each do |task|
-      = render partial: 'shared/task_card_assign', locals: {task: task}
+    - tasks.each do |task|
+      .col.s3
+        = render partial: 'shared/task_card_assign', locals: {task: task}
