@@ -1,0 +1,39 @@
+.modal.bottom-sheet{id: "modal#{task.id}"}
+  .modal-content
+    %h2= task.title
+    = task.inspect
+    .row
+      .col.s4
+        %h4
+          %i.fa.fa-code-fork.fw
+          Project
+        .divider
+        - if task.project
+          %p Name: #{task.project.name}
+          %p Organisation: #{task.project.namespace}
+          %p
+            Link:
+            %a{href: task.project.link}= task.project.link
+          %p Created: #{task.project.created_at}
+          %p Updated: #{task.project.updated_at}
+      .col.s4
+        %h4
+          %i.fa.fa-user.fw
+          Assignee
+        .divider
+        - if task.assignee
+          %p Name: #{task.assignee.name}
+          %p LDAP: #{task.assignee.username}
+          %p Image: #{task.assignee.image_path}
+          %p Created: #{task.assignee.created_at}
+          %p Updated: #{task.assignee.updated_at}
+      .col.s4
+        %h4
+          %i.fa.fa-calendar.fw
+          Milestone
+        .divider
+        - if task.milestone
+          %p Name: #{task.milestone.title}
+          %p Date: #{task.milestone.due_date}
+          %p Created: #{task.milestone.created_at}
+          %p Updated: #{task.milestone.updated_at}

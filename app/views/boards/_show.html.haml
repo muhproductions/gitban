@@ -11,9 +11,11 @@
             %hr
           .drag{id: "col-#{column.id}"}
             - column.tasks.order('position').each do |task|
+              = render partial: 'shared/task_modal', locals: { task: task }
               = render partial: 'shared/task_card', locals: { task: task}
 
 :javascript
+  $('.modal-trigger').leanModal();
   var drake = dragula($('[id*=col]').toArray());
   drake.on('drop', function(el, target, source, sibling){
 
