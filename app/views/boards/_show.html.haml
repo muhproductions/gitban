@@ -54,5 +54,8 @@
           console.log(resp);
         }
     });
-    App.boards.moved(#{@board.id});
+    if(column_id == 0) {
+      $(el).remove();
+    }
+    App.boards.moved(#{@board.id}, task_id);
   });
