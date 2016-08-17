@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
     @boards = Board.all
-    @tasks_unassigned = Task.where(column: nil)
+    @tasks_unassigned = Task.where(column: [nil, 0])
 
     @grouped_options = Board.all.map{|b| [b.name, b.columns.map{|c| [c.name, c.id]}]}
   end
