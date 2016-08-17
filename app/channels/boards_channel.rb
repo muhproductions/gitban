@@ -6,7 +6,7 @@ class BoardsChannel < ApplicationCable::Channel
 
   def modify(data)
     ActionCable.server.broadcast('boards',
-      message: render_board(Board.find(data['message'])))
+      message: {html: render_board(Board.find(data['board'])), task_id: data['task_id']})
   end
 
   def unsubscribed
