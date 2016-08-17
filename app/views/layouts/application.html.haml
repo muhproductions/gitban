@@ -13,27 +13,32 @@
     = favicon_link_tag
   %main
 
-    %nav.blue
-      .container
-        .nav-wrapper
-          %a.brand-logo{href: '/'}
-            %i.fa.fa-gitlab
-            GitBan
-          %ul.right.hide-on-med-and-down
-            %li{class: cp("/")}
-              %a{href: '/'} Home
-            %li{class: cp("/assignees")}
-              %a{href: '/assignees'} Assignees
-            %li{class: cp("/boards")}
-              %a{href: '/boards'} Boards
-            %li{class: cp("/columns")}
-              %a{href: '/columns'} Columns
-            %li{class: cp("/milestones")}
-              %a{href: '/milestones'} Milestones
-            %li{class: cp("/projects")}
-              %a{href: '/projects'} Projects
-            %li{class: cp("/tasks")}
-              %a{href: '/tasks'} Tasks
+    .navbar-fixed
+      %nav.blue
+        .container
+          .nav-wrapper
+            %a.brand-logo{href: '/'}
+              %i.fa.fa-gitlab
+              GitBan
+            %ul.right.hide-on-med-and-down
+              %li{class: cp("/")}
+                %a{href: '/'} Home
+              %li{class: cp("/assignees")}
+                %a{href: '/assignees'} Assignees
+              %li{class: cp("/boards")}
+                %a{href: '/boards'} Boards
+              %li{class: cp("/columns")}
+                %a{href: '/columns'} Columns
+              %li{class: cp("/milestones")}
+                %a{href: '/milestones'} Milestones
+              %li{class: cp("/projects")}
+                %a{href: '/projects'} Projects
+              %li{class: cp("/tasks")}
+                %a{href: '/tasks'} Tasks
+              - if @no_footer
+                %li.brand-logo
+                  %i.right.fa.fa-check-square-o{style: 'color: #1b5e20'}
+                  #col-0{style: 'height: 64px; width: 100px;'}
     .container
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
@@ -46,23 +51,12 @@
             &times;
           = flash[:success]
     = yield
-  %footer.page-footer.blue
-    .container
-      .row
-        .col.l6.s12
-          %h5.white-text GitBan
-          %p.grey-text-text-lighten-4
-            GitBan is designed to make KanBan as easy as possible with GitLab while handling all tasks via GitLab.
-        .col.l4.offset-l2.s12
-          %h5.white-text More Stuff
-          %ul
-            %li
-              %a.grey-text.text-lighten-3{href: 'https://github.com/muhproductions/gitban'} GitHub
-    .footer-copyright
-      .container
-        © 2016 muhproductions
-        %a.grey-text.text-lighten-4.right{href: 'https://github.com/muhproductions'}
-          muhproductions
-          %i.fa.fa-heart
-          GitHub
-  
+  - unless @no_footer
+    %footer.page-footer.blue
+      .footer-copyright
+        .container
+          © 2016 muhproductions
+          %a.grey-text.text-lighten-4.right{href: 'https://github.com/muhproductions'}
+            muhproductions
+            %i.fa.fa-heart
+            GitHub
