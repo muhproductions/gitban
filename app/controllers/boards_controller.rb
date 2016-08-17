@@ -10,8 +10,6 @@ class BoardsController < ApplicationController
   # GET /boards/1
   # GET /boards/1.json
   def show
-    @columns = @board.columns
-    @colclass = "col s#{12 / @columns.size}" rescue nil
   end
 
   # GET /boards/new

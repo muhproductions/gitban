@@ -4,7 +4,19 @@ class BoardsChannel < ApplicationCable::Channel
     stream_from "boards"
   end
 
+  def modify(data)
+    ActionCable.server.broadcast('boards',
+      message: render_board(Board.find(data['message'])))
+  end
+
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
+  end
+
+  private
+
+  def render_board(board)
+    ApplicationController.render(partial: 'boards/show',
+                                 locals: { board: board })
   end
 end

@@ -1,51 +1,5 @@
-.container-fluid
-.row
-  - @columns.each do |column|
-    %div{class: @colclass}
-      .card
-        .card-content
-          .card-title
-            = column.name
-            %hr
-          .drag{id: "col-#{column.id}"}
-            - column.tasks.order('position').each do |task|
-              = render partial: 'shared/task_card', locals: { task: task}
-
-:javascript
-  var drake = dragula($('[id*=col]').toArray());
-  drake.on('drop', function(el, target, source, sibling){
-
-    // Update Task position
-    var task_id = el.id;
-    var task_position = $(el).index();
-    var column_id = target.id.substring(4);
-    console.log("task_id: " + task_id);
-    console.log("task_position: " + task_position);
-    console.log("column_id: " + column_id);
-
-
-    var pos = {};
-    pos[target.id] = [];
-    pos[source.id] = [];
-    $(target).children().map(function(){
-      pos[target.id].push($(this).attr('id'));
-    });
-    if (source.id != target.id) {
-      $(source).children().map(function(){
-        pos[source.id].push($(this).attr('id'));
-      });
-    }
-
-    $.ajax({
-        url: "/tasks/" + task_id,
-        type: "PATCH",
-        data: {task: {
-                 position: task_position,
-                 column_id: column_id},
-               authenticity_token: '#{form_authenticity_token}',
-               positions: pos},
-        success: function(resp){
-          console.log(resp);
-        }
-    });
-  });
+#board
+  .center
+    %h5
+      %i.fa.fa-circle-o-notch.fa-spin.fa-fw
+      Loading Board
