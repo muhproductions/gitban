@@ -8,6 +8,12 @@
         .card-content
           .card-title
             = column.name
+            .right
+              %b Min
+              = column.min || 0
+              %b Max
+              = column.max || 0
+
             %hr
           .drag{id: "col-#{column.id}"}
             - column.tasks.order('position').each do |task|
