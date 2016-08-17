@@ -45,3 +45,22 @@ main {
 .card-action .chip {
   font-size: 10px;
 }
+
+#toast-container {
+  position: absolute;
+  top: auto;
+  bottom: 20px;
+  right: 20px;
+}
+
+.card.gu-mirror .card-action .truncate {
+  margin: 0
+}
+
+#col-0 .gu-transit {
+  display: none;
+}
+
+#board > .row > .col {
+  padding: 4px;
+}
