@@ -1,15 +1,9 @@
 .card.hoverable.light-blue.accent-2.modal-trigger{id: task.id, href: "#modal#{task.id}"}
   .card-content
-    - if task.milestone
-      %span.card-title.truncate.tooltipped{data: { position: :top,
-          delay: 50,
-          tooltip: "#{task.milestone.title} (#{task.milestone.due_date})"}}
-        %span.new.badge.red{'data-badge-caption': ''}
-          %b= task.state[0].capitalize
-        = task.title
-    - else
-      %span.card-title.truncate
-        = task.title
+    %span.card-title.truncate
+      %span.new.badge.red{'data-badge-caption': ''}
+        %b= task.state[0].capitalize
+      = task.title
   .card-action
     - if task.assignee
       %p.truncate
