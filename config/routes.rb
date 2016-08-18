@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   #
   root to: 'welcome#index'
 
+  mount ActionCable.server => '/cable'
+
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
 end
