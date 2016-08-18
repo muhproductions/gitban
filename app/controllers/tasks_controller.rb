@@ -57,7 +57,15 @@ class TasksController < ApplicationController
           format.html { redirect_back fallback_location: :tasks }
           format.json { render :show, status: :ok, location: @task }
         else
-          return :ok
+          source = Column.find(@task.column_id_previous_change.first)
+          ActionCable.server.broadcast(
+            'notifications',
+            dom_id: "##{@task.id}",
+            name: @task.title,
+            source: source.name,
+            destination: @task.column.name
+          )
+          format.json { render json: @task }
         end
       else
         unless request.xhr?

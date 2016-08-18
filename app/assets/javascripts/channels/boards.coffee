@@ -8,8 +8,6 @@ App.boards = App.cable.subscriptions.create "BoardsChannel",
 
   received: (data) ->
     $('#board').html(data.message.html)
-    if data.message.task_id
-      Materialize.toast('Moved task ' + data.message.task_id, 30000)
     # Called when there's incoming data on the websocket for this channel
 
   moved: (board, task_id) ->
