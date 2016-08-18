@@ -17,6 +17,11 @@
                 %b= column.min.to_i
                 Max
                 %b= column.max
+            - else
+              .right
+                Curr
+                %b= column.tasks.count
+
 
             %hr
           .drag{id: "col-#{column.id}"}
