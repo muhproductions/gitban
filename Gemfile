@@ -11,6 +11,9 @@ gem 'therubyracer', platforms: :ruby
 
 gem 'haml'
 
+gem 'devise'
+gem 'omniauth-gitlab'
+
 gem 'jquery-rails'
 gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
