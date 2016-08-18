@@ -1,5 +1,9 @@
 - @board = board
 - @colclass = "col s#{12 / @board.columns.size}" rescue nil
+- @board.columns.each do |column|
+  - column.tasks.each do |task|
+    = render partial: 'shared/task_modal', locals: { task: task }
+
 .container-fluid
 .row
   - @board.columns.each do |column|
@@ -17,7 +21,6 @@
             %hr
           .drag{id: "col-#{column.id}"}
             - column.tasks.order('position').each do |task|
-              = render partial: 'shared/task_modal', locals: { task: task }
               = render partial: 'shared/task_card', locals: { task: task}
 
 :javascript
@@ -41,6 +44,8 @@
         pos[source.id].push($(this).attr('id'));
       });
     }
+
+    console.log(pos);
 
     $.ajax({
         url: "/tasks/" + task_id,
