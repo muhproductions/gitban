@@ -11,35 +11,35 @@
     = javascript_include_tag 'application'
     = yield :script
     = favicon_link_tag
-  %main
+  %main{class: (@board rescue nil) ? 'blue darken-4' : ''}
 
     .navbar-fixed
-      %nav.blue
+      %nav.white
         .container
-          .nav-wrapper
-            %a.brand-logo{href: '/'}
+          .nav-wrapper.blue-text.text-darken-2
+            %a.blue-text.text-darken-2.brand-logo{href: '/'}
               %i.fa.fa-gitlab
               GitBan
             %ul.right.hide-on-med-and-down
               %li{class: cp("/")}
-                %a{href: '/'} Home
+                %a.blue-text.text-darken-2{href: '/'} Home
               %li{class: cp("/assignees")}
-                %a{href: '/assignees'} Assignees
+                %a.blue-text.text-darken-2{href: '/assignees'} Assignees
               %li{class: cp("/boards")}
-                %a{href: '/boards'} Boards
+                %a.blue-text.text-darken-2{href: '/boards'} Boards
               %li{class: cp("/columns")}
-                %a{href: '/columns'} Columns
+                %a.blue-text.text-darken-2{href: '/columns'} Columns
               %li{class: cp("/milestones")}
-                %a{href: '/milestones'} Milestones
+                %a.blue-text.text-darken-2{href: '/milestones'} Milestones
               %li{class: cp("/projects")}
-                %a{href: '/projects'} Projects
+                %a.blue-text.text-darken-2{href: '/projects'} Projects
               %li{class: cp("/tasks")}
-                %a{href: '/tasks'} Tasks
+                %a.blue-text.text-darken-2{href: '/tasks'} Tasks
               - if @no_footer
                 %li.brand-logo
-                  %i.right.fa.fa-check-square-o{style: 'color: #1b5e20'}
+                  %i.right.fa.fa-check-square-o.blue-text
                   #col-0{style: 'height: 64px; width: 100px;'}
-    .container
+    %div.blue.darken-4
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
           %button.close{type: :button, 'data-dismiss': :alert}

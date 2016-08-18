@@ -1,8 +1,8 @@
-.card.hoverable.light-blue.accent-2.modal-trigger{id: task.id, href: "#modal#{task.id}"}
+.card.hoverable.modal-trigger{id: task.id, href: "#modal#{task.id}"}
   .card-content
-    %span.card-title.truncate
-      %span.new.badge.red{'data-badge-caption': ''}
-        %b= task.state[0].capitalize
+    %span.card-title.truncate.amber.lighten-3
+      %span.new.badge.z-depth-1{'data-badge-caption': '', class: task.state == 'opened' ? 'red' : 'blue'}
+        %b= task.state
       = task.title
   .card-action
     - if task.assignee
@@ -10,9 +10,10 @@
         %i.fa.fa-user.fa-fw
         = task.assignee.name
     - if task.labels.to_a.any?
-      %p.truncate
+      %div.truncate
         %i.fa.fa-tags.fa-fw
-        = task.labels.to_a.inspect
+        - task.labels.each do |l|
+          %div.task_label.blue.accent-2.white-text= l
     - if task.project
       %p.truncate
         %i.fa.fa-code-fork.fa-fw

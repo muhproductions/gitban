@@ -1,12 +1,10 @@
 - @board = board
-- @colclass = "col s#{12 / @board.columns.size}" rescue nil
-.container-fluid
-.row
+.board_flex
   - @board.columns.each do |column|
-    %div{class: @colclass}
-      .card
-        .card-content
-          .card-title
+    %div.board_column
+      .card.light-blue.darken-2
+        .card-content{style: 'padding-bottom: 10px;'}
+          .card-title.white-text
             = column.name
             - if column.max
               .right
