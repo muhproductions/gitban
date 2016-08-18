@@ -5,8 +5,22 @@
   or you just decided to remove them from your board.
 %p
   However, you can - and should - reassign them to a existing board.
-- @tasks_unassigned.each_slice(4) do |tasks|
-  .row
-    - tasks.each do |task|
-      .col.s3
-        = render partial: 'shared/task_card_assign', locals: {task: task}
+.row
+  .col.s12
+    %ul.tabs
+      %li.tab.col.s6
+        %a.active{href: '#unassigned'} Unassigned
+      %li.tab.col.s6
+        %a{href: '#closed'} Closed
+.col.s12#unassigned
+  - @tasks_unassigned.each_slice(4) do |tasks|
+    .row
+      - tasks.each do |task|
+        .col.s3
+          = render partial: 'shared/task_card_assign', locals: {task: task}
+.col.s12#closed
+  - @tasks_closed.each_slice(4) do |tasks|
+    .row
+      - tasks.each do |task|
+        .col.s3
+          = render partial: 'shared/task_card_assign', locals: {task: task}
