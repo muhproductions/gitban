@@ -1,38 +1,52 @@
-.modal.bottom-sheet{id: "modal#{task.id}"}
+.modal{id: "modal#{task.id}"}
   .modal-content
-    %h2= task.title
+    %h3= task.title
     .row
-      .col.s4
-        %h4
+      .col.s3
+        %h5
+          %i.fa.fa-pencil.fw
+          Task
+        .divider
+        %ul
+          %li Title: #{task.title}
+          %li Labels: #{task.labels.inspect}
+          %li State: #{task.state}
+          %li Due date: #{task.due_date}
+          %li Position: #{task.position}
+          %li Column: #{task.column_id}
+          %li Gitlab ID: #{task.gitlab_id}
+          %li Gitlab IID: #{task.gitlab_internal_id}
+          %li
+            Link:
+            %a{href: task.link}= task.link
+      .col.s3
+        %h5
           %i.fa.fa-code-fork.fw
           Project
         .divider
         - if task.project
-          %p Name: #{task.project.name}
-          %p Organisation: #{task.project.namespace}
-          %p
-            Link:
-            %a{href: task.project.link}= task.project.link
-          %p Created: #{task.project.created_at}
-          %p Updated: #{task.project.updated_at}
-      .col.s4
-        %h4
+          %ul
+            %li Name: #{task.project.name}
+            %li Organisation: #{task.project.namespace}
+            %li
+              Link:
+              %a{href: task.project.link}= task.project.link
+      .col.s3
+        %h5
           %i.fa.fa-user.fw
           Assignee
         .divider
         - if task.assignee
-          %p Name: #{task.assignee.name}
-          %p LDAP: #{task.assignee.username}
-          %p Image: #{task.assignee.image_path}
-          %p Created: #{task.assignee.created_at}
-          %p Updated: #{task.assignee.updated_at}
-      .col.s4
-        %h4
+          %ul
+            %li Name: #{task.assignee.name}
+            %li LDAP: #{task.assignee.username}
+            %li Image: #{task.assignee.image_path}
+      .col.s3
+        %h5
           %i.fa.fa-calendar.fw
           Milestone
         .divider
         - if task.milestone
-          %p Name: #{task.milestone.title}
-          %p Date: #{task.milestone.due_date}
-          %p Created: #{task.milestone.created_at}
-          %p Updated: #{task.milestone.updated_at}
+          %ul
+            %li Name: #{task.milestone.title}
+            %li Date: #{task.milestone.due_date}
