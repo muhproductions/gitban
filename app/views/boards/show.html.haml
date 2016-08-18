@@ -1,3 +1,6 @@
+- @board.columns.each do |column|
+  - column.tasks.each do |task|
+    = render partial: 'shared/task_modal', locals: { task: task }
 #board
   .center
     %h5
