@@ -50,10 +50,13 @@ main {
 
 .card .card-content .card-title {
   line-height: inherit;
+}
+
+.card .card-content .card-action {
   position: relative;
 }
 
-.card .card-content .card-title .badge {
+.card .card-content .card-action .badge {
   position: absolute;
   right: 4px;
   top: 5px;
