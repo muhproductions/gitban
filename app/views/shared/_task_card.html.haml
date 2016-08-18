@@ -21,3 +21,6 @@
       %p.truncate
         %i.fa.fa-code-fork.fa-fw
         = task.project.name
+- if animate.to_i == task.id
+  :javascript
+    $("##{task.id}").animateCss('tada');
