@@ -8,16 +8,12 @@
             = column.name
             - if column.max
               .right
-                Curr
                 %b{class: column.tasks.count >= column.max ? 'red-text' : ''}
                   = column.tasks.count
-                Min
-                %b= column.min.to_i
-                Max
+                of
                 %b= column.max
             - else
               .right
-                Curr
                 %b= column.tasks.count
 
 
