@@ -33,6 +33,7 @@ main {
 .board_column {
   flex: 1 1;
   margin: 5px;
+  min-width: 0;
 }
 
 .drag {
