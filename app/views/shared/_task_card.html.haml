@@ -1,6 +1,6 @@
 .card.hoverable.modal-trigger{id: task.id, href: "#modal#{task.id}"}
   .card-content
-    %span.card-title.truncate.amber.lighten-3
+    %span.card-title.truncate.amber.lighten-3{title: task.title}
       = task.title
   .card-action
     %span.new.badge.z-depth-1{'data-badge-caption': '', class: task.state == 'opened' ? 'red' : 'blue'}
