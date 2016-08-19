@@ -6,4 +6,6 @@ App.notifications = App.cable.subscriptions.create "NotificationsChannel",
                       data['source'] +
                       '</b>&nbsp;to&nbsp;<b>' +
                       data['destination'] +
+                      '</b>&nbsp;by&nbsp;<b>' +
+                      data['user'] +
                       '</b>', 30000)

@@ -64,7 +64,8 @@ class TasksController < ApplicationController
             dom_id: "##{@task.id}",
             name: @task.title,
             source: source.name,
-            destination: @task.column.name
+            destination: @task.column.name,
+            user: current_user.name
           )
           format.json { render json: @task }
         end
