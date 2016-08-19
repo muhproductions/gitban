@@ -1,7 +1,16 @@
-.card.hoverable.modal-trigger{id: task.id, href: "#modal#{task.id}"}
+.card.hoverable.modal-trigger.black-text{id: task.id, href: "#modal#{task.id}"}
   .card-content
     %span.card-title.truncate.amber.lighten-3{title: task.title}
       = task.title
+  - if @grouped_options
+    .card-action
+      = form_for task do |f|
+        .row{style: "margin-bottom: 0px;"}
+          .input-field.col.s10
+            = f.select :column_id, grouped_options_for_select(@grouped_options)
+          .input-field.col.s2
+            = f.button class: 'btn-floating waves-effect' do
+              %i.fa.fa-plus
   .card-action
     %span.new.badge.z-depth-1{'data-badge-caption': '', class: task.state == 'opened' ? 'red' : 'blue'}
       %b= task.state

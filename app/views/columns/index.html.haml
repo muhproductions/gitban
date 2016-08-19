@@ -1,23 +1,24 @@
 %p#notice= notice
 .container
   %h1 Columns
-  %table
+  %table.white-text
     %thead
       %tr
         %th Name
         %th Min
         %th Max
         %th Board
-        %th{:colspan => "3"}
+        %th
     %tbody
       - @columns.each do |column|
         %tr
           %td= column.name
           %td= column.min
           %td= column.max
-          %td= column.board
-          %td= link_to 'Show', column
-          %td= link_to 'Edit', edit_column_path(column)
-          %td= link_to 'Destroy', column, method: :delete, data: { confirm: 'Are you sure?' }
-  %br/
-  = link_to 'New Column', new_column_path
+          %td
+            - b_id = column.board.id
+            = link_to "Board #{b_id}", column.board, class: 'btn grey darken-4'
+          %td.right-align
+            = link_to 'Edit', edit_column_path(column), class: 'btn yellow darken-4'
+            = link_to 'Destroy', column, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn red'
+  = link_to 'New Column', new_column_path, class: 'btn green'

@@ -1,6 +1,5 @@
 .container
   %h1 Editing Board
   = render 'form', board: @board
-  = link_to 'Show', @board
-  |
-  = link_to 'Back', boards_path
+  = link_to 'Show', @board, class: 'btn green'
+  = link_to 'Back', boards_path, class: 'btn red'

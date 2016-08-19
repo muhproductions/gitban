@@ -11,34 +11,42 @@
     = javascript_include_tag 'application'
     = yield :script
     = favicon_link_tag
-  %main{class: (@board rescue nil) ? 'blue darken-4' : ''}
+  %main{class: 'blue darken-4 white-text'}
 
+    %ul.dropdown-content#dropdown_boards
+      %li
+        = link_to 'All boards', '/boards'
+      %li.divider
+      - @boards.each do |b|
+        %li
+          = link_to b.name, b
     .navbar-fixed
       %nav.white
-        .container
-          .nav-wrapper.blue-text.text-darken-2
-            %a.blue-text.text-darken-2.brand-logo{href: '/', class: user_signed_in? ? '' : 'center'}
-              %i.fa.fa-gitlab
-              GitBan
-            %ul.right.hide-on-med-and-down
-              - if user_signed_in?
-                %li{class: cp("/")}
-                  %a.blue-text.text-darken-2{href: '/'} Home
-                %li{class: cp("/boards")}
-                  %a.blue-text.text-darken-2{href: '/boards'} Boards
-                %li{class: cp("/columns")}
-                  %a.blue-text.text-darken-2{href: '/columns'} Columns
-                %li{class: cp("/tasks")}
-                  %a.blue-text.text-darken-2{href: '/tasks'} Tasks
-                %li
-                  %i.fa.fa-user.fa-fw
-                  = current_user.name
-                %li
-                  = link_to('Logout', destroy_user_session_path, method: :delete, class: 'blue-text text-darken-2')
-                - if @no_footer
-                  %li.brand-logo
-                    %i.right.fa.fa-check-square-o.blue-text
-                    #col-0{style: 'height: 64px; width: 100px;'}
+        .nav-wrapper.blue-text.text-darken-2{style: "padding-left: 5px;"}
+          %a.blue-text.text-darken-2.brand-logo{href: '/', class: user_signed_in? ? '' : 'center'}
+            %i.fa.fa-gitlab
+            GitBan
+          %ul.right.hide-on-med-and-down
+            - if user_signed_in?
+              %li{class: cp("/")}
+                %a.blue-text.text-darken-2{href: '/'} Home
+              %li
+                %a.blue-text.text-darken-2.dropdown-button{href: '#', data: {activates: 'dropdown_boards'}, style: 'min-width: 150px;'}
+                  Boards
+                  %i.fa.fa-caret-down.right
+              %li{class: cp("/columns")}
+                %a.blue-text.text-darken-2{href: '/columns'} Columns
+              %li{class: cp("/tasks")}
+                %a.blue-text.text-darken-2{href: '/tasks'} Tasks
+              %li
+                %i.fa.fa-user.fa-fw
+                = current_user.name
+              %li
+                = link_to('Logout', destroy_user_session_path, method: :delete, class: 'blue-text text-darken-2')
+              - if @no_footer
+                %li.brand-logo
+                  %i.right.fa.fa-check-square-o.blue-text
+                  #col-0{style: 'height: 64px; width: 100px;'}
     %div.blue.darken-4
       - if flash[:error]
         .alert.alert-danger.alert.dismissible

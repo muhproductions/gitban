@@ -1,6 +1,4 @@
 .container
   %h1 Editing Column
   = render 'form', column: @column
-  = link_to 'Show', @column
-  |
-  = link_to 'Back', columns_path
+  = link_to 'Back', columns_path, class: 'btn red'
