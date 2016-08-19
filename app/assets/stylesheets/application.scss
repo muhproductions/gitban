@@ -25,23 +25,52 @@ main {
   flex: 1 0 auto;
 }
 
+.board_flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.board_column {
+  flex-grow: 1;
+  flex-basis: 100px;
+  margin: 5px;
+}
+
 .drag {
   min-height: 50px;
 }
 .card .card-title {
-  font-size: 14px;
+  font-size: 18px;
+  margin: 0px -8px;
+  padding: 0px 8px;
 }
 .card .card-content {
-  padding: 0px 5px 2px 5px;
+  padding: 0px 8px 0px 8px;
 }
 
 .card .card-content .card-title {
   line-height: inherit;
 }
 
+.card .card-content .card-action {
+  position: relative;
+}
+
+.card .card-content .card-action .badge {
+  position: absolute;
+  right: 4px;
+  top: 5px;
+}
+
+.task_label {
+  display: inline;
+  padding: 2px 4px;
+  font-size: 12px;
+}
+
 .card .card-action {
   padding: 5px;
-  border-top: 2px dotted;
+  border-top: 1px solid;
 }
 .card-action .chip {
   font-size: 10px;

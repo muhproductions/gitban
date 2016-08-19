@@ -11,25 +11,31 @@
     = javascript_include_tag 'application'
     = yield :script
     = favicon_link_tag
-  %main
+  %main{class: (@board rescue nil) ? 'blue darken-4' : ''}
 
     .navbar-fixed
-      %nav.blue
+      %nav.white
         .container
-          .nav-wrapper
-            %a.brand-logo{href: '/', class: user_signed_in? ? '' : 'center'}
+          .nav-wrapper.blue-text.text-darken-2
+            %a.blue-text.text-darken-2.brand-logo{href: '/', class: user_signed_in? ? '' : 'center'}
               %i.fa.fa-gitlab
               GitBan
             %ul.right.hide-on-med-and-down
               - if user_signed_in?
                 %li{class: cp("/")}
-                  %a{href: '/'} Home
+                  %a.blue-text.text-darken-2{href: '/'} Home
+                %li{class: cp("/assignees")}
+                  %a.blue-text.text-darken-2{href: '/assignees'} Assignees
                 %li{class: cp("/boards")}
-                  %a{href: '/boards'} Boards
+                  %a.blue-text.text-darken-2{href: '/boards'} Boards
                 %li{class: cp("/columns")}
-                  %a{href: '/columns'} Columns
+                  %a.blue-text.text-darken-2{href: '/columns'} Columns
+                %li{class: cp("/milestones")}
+                  %a.blue-text.text-darken-2{href: '/milestones'} Milestones
+                %li{class: cp("/projects")}
+                  %a.blue-text.text-darken-2{href: '/projects'} Projects
                 %li{class: cp("/tasks")}
-                  %a{href: '/tasks'} Tasks
+                  %a.blue-text.text-darken-2{href: '/tasks'} Tasks
                 %li
                   %i.fa.fa-user.fa-fw
                   = current_user.name
@@ -37,18 +43,9 @@
                   = link_to('Logout', destroy_user_session_path, :method => :delete)
                 - if @no_footer
                   %li.brand-logo
-                    %i.right.fa.fa-check-square-o{style: 'color: #1b5e20'}
+                    %i.right.fa.fa-check-square-o.blue-text
                     #col-0{style: 'height: 64px; width: 100px;'}
-    .container
-      .row
-        .col.s12
-          - if notice
-            .card-panel.blue
-              %span.white-text= notice
-          - elsif alert
-            .card-panel.red
-              %span.white-text= alert
-
+    %div.blue.darken-4
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
           %button.close{type: :button, 'data-dismiss': :alert}
