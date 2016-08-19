@@ -9,6 +9,11 @@ class BoardsChannel < ApplicationCable::Channel
       message: {html: render_board(Board.find(data['board']), data['task_id']), task_id: data['task_id']})
   end
 
+  def refresh(data)
+    ActionCable.server.broadcast('boards',
+      message: {html: render_board(Board.find(data['board']), nil)})
+  end
+
   def unsubscribed
     # Any cleanup needed when channel is unsubscribed
   end

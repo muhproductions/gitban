@@ -6,3 +6,7 @@
     %h5.white-text
       %i.fa.fa-circle-o-notch.fa-spin.fa-fw
       Loading Board
+:javascript
+  $(document).ready(function(){
+    App.boards.refresh(#{@board.id});
+  })

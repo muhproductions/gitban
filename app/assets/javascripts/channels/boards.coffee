@@ -1,6 +1,5 @@
 App.boards = App.cable.subscriptions.create "BoardsChannel",
   connected: ->
-    @perform 'modify', board: 1, task_id: null
     # Called when the subscription is ready for use on the server
 
   disconnected: ->
@@ -12,3 +11,6 @@ App.boards = App.cable.subscriptions.create "BoardsChannel",
 
   moved: (board, task_id) ->
     @perform 'modify', board: board, task_id: task_id
+
+  refresh: (board) ->
+    @perform 'refresh', board: board
