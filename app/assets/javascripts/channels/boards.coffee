@@ -1,5 +1,6 @@
 App.boards = App.cable.subscriptions.create "BoardsChannel",
   connected: ->
+    @perform 'refresh', board: boardID
     # Called when the subscription is ready for use on the server
 
   disconnected: ->

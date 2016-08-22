@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize-sprockets
-// require turbolinks
 //= require dragula
 //= require_tree .
 
@@ -26,6 +25,6 @@ $.fn.extend({
   }
 });
 
-document.addEventListener("turbolinks:load", function() {
+$(document).ready(function() {
   $('select').material_select();
 })
