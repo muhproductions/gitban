@@ -44,9 +44,8 @@
               %li
                 = link_to('Logout', destroy_user_session_path, method: :delete, class: 'blue-text text-darken-2')
               - if @no_footer
-                %li.brand-logo
-                  %i.right.fa.fa-check-square-o.blue-text
-                  #col-0{style: 'height: 64px; width: 100px;'}
+                %li
+                  %i.fa.fa-3x.fa-check-square-o.blue-text#col-0{style: 'height: 64px;padding-left: 20px;padding-right: 20px;'}
     %div.blue.darken-4
       - if flash[:error]
         .alert.alert-danger.alert.dismissible
