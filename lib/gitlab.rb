@@ -9,28 +9,32 @@ class Gitlab
     @token, @api_url = token, api_url
   end
 
+  def close_issue(id, project_id)
+    put "projects/#{project_id}/issues/#{id}", params: { state_event: :close }
+  end
+
   def groups
-    @groups ||= api('groups').compact
+    @groups ||= get('groups').compact
   end
 
   def projects
-    @projects ||= api("projects/all").compact
+    @projects ||= get("projects/all").compact
   end
 
   def issues
     @issues ||= begin
       @issues = groups.flat_map do |group|
-        api "groups/#{group['id']}/issues"
+        get "groups/#{group['id']}/issues"
       end.compact
       @issues += groups.flat_map do |group|
-        api "groups/#{group['id']}/issues", params: { state: :closed }
+        get "groups/#{group['id']}/issues", params: { state: :closed }
       end.compact
     end
   end
 
   def merge_requests
     @mr ||= projects.flat_map do |project|
-      api "projects/#{project['id']}/merge_requests"
+      get "projects/#{project['id']}/merge_requests"
     end.compact
   end
 
@@ -38,7 +42,7 @@ class Gitlab
     @mr, @issues, @projects, @groups = []
   end
 
-  def api path, params: {}
+  def get path, params: {}
     api_return = []
     hydra = Typhoeus::Hydra.new
     r = Typhoeus::Request.new(
@@ -59,6 +63,16 @@ class Gitlab
     hydra.run
     api_return << requests.map{ |r| load_json(r.response) }.compact
     api_return.flatten
+  end
+
+  def put path, params: {}
+    api_return = []
+    r = Typhoeus::Request.new(
+      "#{api_url}/#{path}",
+      method: :put,
+      params: params.merge({ private_token: token })
+    )
+    load_json(r.run)
   end
 
   def load_json r

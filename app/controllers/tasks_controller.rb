@@ -69,6 +69,10 @@ class TasksController < ApplicationController
           )
           format.json { render json: @task }
         end
+        if @task.column.name == 'Done'
+          gitlab = Gitlab.new(api_url: ENV['API_URL'], token: ENV['TOKEN'])
+          gitlab.close_issue(@task.id, @task.project.id)
+        end
       else
         unless request.xhr?
           format.html { render :edit }
