@@ -4,6 +4,8 @@ class Task < ApplicationRecord
   belongs_to :project, optional: true
   belongs_to :column, optional: true
 
+  self.inheritance_column = :_type_disabled
+
   serialize :labels
 
   default_scope { order(:position) }

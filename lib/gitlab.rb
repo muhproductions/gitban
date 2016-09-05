@@ -129,21 +129,27 @@ class Gitlab::Sync
                                link: p['web_url'])
   end
 
-  def gitlab_internal_id(issue)
-    if issue.has_key?('source_project_id') and 
+  def merge_request?(issue)
+    issue.has_key?('source_project_id') and 
       issue.has_key?('target_project_id') and
       issue.has_key?('merge_status')
-      "!#{issue['iid']}"
-    else
-      "##{issue['iid']}"
-    end
+  end
+
+  def gitlab_internal_id(issue)
+    merge_request?(issue) ? "!#{issue['iid']}" : "##{issue['iid']}"
+  end
+
+  def task_type(issue)
+    merge_request?(issue) ? "merge_request" : "issue"
   end
 
   def task!(issue: nil, ms: nil, as: nil, project: nil)
-    x = Task.find_or_create_by!(gitlab_id: issue['id'])
+    x = Task.find_or_create_by!(gitlab_id: issue['id'], 
+                               type: task_type(issue))
     x.update!(milestone_id: ms.try(:id),
               assignee_id: as.try(:id),
               title: issue['title'],
+              type: task_type(issue),
               gitlab_internal_id: gitlab_internal_id(issue),
               project_id: project.try(:id),
               state: issue['state'],

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160818152127) do
+ActiveRecord::Schema.define(version: 20160905163108) do
 
   create_table "assignees", force: :cascade do |t|
     t.string   "name"
@@ -67,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160818152127) do
     t.datetime "updated_at",         null: false
     t.integer  "gitlab_id"
     t.string   "gitlab_internal_id"
+    t.string   "type"
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["column_id"], name: "index_tasks_on_column_id"
     t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
