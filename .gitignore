@@ -32,3 +32,5 @@ config/initializers/secret_token.rb
 *.swp
 
 Gemfile.lock
+
+rails_init.sh
