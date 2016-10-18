@@ -10,4 +10,12 @@ class Task < ApplicationRecord
 
   default_scope { order(:position) }
 
+  def in_progress?
+    !!['Testing', 'In Progress'].include?(self.column.name)
+  end
+
+  def done?
+    self.column.name == 'Done'
+  end
+
 end
