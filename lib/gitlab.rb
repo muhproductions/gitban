@@ -25,6 +25,8 @@ class Gitlab
       event = 'reopen'
     end
 
+    task.update labels: labels
+
     put("projects/#{project_id}/issues/#{id}",
          params: { state_event: event, labels: labels.join(',') })
 
