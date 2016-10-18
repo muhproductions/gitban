@@ -71,7 +71,7 @@ class TasksController < ApplicationController
         end
         if @task.column.name == 'Done'
           gitlab = Gitlab.new(api_url: ENV['API_URL'], token: ENV['TOKEN'])
-          gitlab.close_issue(@task.id, @task.project.id)
+          gitlab.close_issue(@task.gitlab_id, @task.project.gitlab_id)
         end
       else
         unless request.xhr?

@@ -140,7 +140,8 @@ class Gitlab::Sync
   def project!(p)
     Project.find_or_create_by!(name: p["name"], 
                                namespace: p['namespace']['name'],
-                               link: p['web_url'])
+                               link: p['web_url'],
+                               gitlab_id: p['id'])
   end
 
   def merge_request?(issue)
