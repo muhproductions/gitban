@@ -1,0 +1,11 @@
+#/bin/bash
+export API_URL=
+export TOKEN=
+export DATABASE_PATH=/var/lib/gitban/db
+export SECRET_KEY_BASE=
+export RAILS_ENV=production
+export GITLAB_URL=
+export GITLAB_APP_ID=
+export GITLAB_SECRET_ID=
+bundle exec rails db:migrate
+bundle exec rails s -b 0.0.0.0
