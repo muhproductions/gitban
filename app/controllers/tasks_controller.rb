@@ -54,11 +54,11 @@ class TasksController < ApplicationController
         task_data[:column_id] = task_data[:column_id].to_i
       end
       if @task.update(task_data)
+        source = Column.find(@task.column_id_previous_change.first)
         unless request.xhr?
           format.html { redirect_back fallback_location: :tasks }
           format.json { render :show, status: :ok, location: @task }
         else
-          source = Column.find(@task.column_id_previous_change.first)
           ActionCable.server.broadcast(
             'notifications',
             dom_id: "##{@task.id}",
@@ -69,10 +69,8 @@ class TasksController < ApplicationController
           )
           format.json { render json: @task }
         end
-        if @task.column.name == 'Done'
-          gitlab = Gitlab.new(api_url: ENV['API_URL'], token: ENV['TOKEN'])
-          gitlab.close_issue(@task.gitlab_id, @task.project.gitlab_id)
-        end
+        gitlab = Gitlab.new(api_url: ENV['API_URL'], token: ENV['TOKEN'])
+        gitlab.update_gitlab_issue(@task)
       else
         unless request.xhr?
           format.html { render :edit }

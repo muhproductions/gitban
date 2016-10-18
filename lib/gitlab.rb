@@ -9,8 +9,25 @@ class Gitlab
     @token, @api_url = token, api_url
   end
 
-  def close_issue(id, project_id)
-    put "projects/#{project_id}/issues/#{id}", params: { state_event: :close }
+  def update_gitlab_issue(task)
+    id = task.gitlab_id
+    project_id = task.project.gitlab_id
+
+    if task.in_progress?
+      labels = (task.labels + ['in-progress']) unless task.labels.include?('in-progress')
+    else
+      labels = task.labels - ['in-progress']
+    end
+
+    if task.done?
+      event = 'close'
+    else
+      event = 'reopen'
+    end
+
+    put("projects/#{project_id}/issues/#{id}",
+         params: { state_event: event, labels: labels.join(',') })
+
   end
 
   def groups
