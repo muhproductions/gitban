@@ -1,19 +1,20 @@
 .container
-  .col.s12.m8
-    .card-panel.grey.lighten-5
-      .row.valign-wrapper
-        .col.s2
-          %img.circle.responsive-img{src: @user.avatar_url}
-        .col.s10
-          %span.black-text
-            %h2= @user.name
-            %hr
-    .card-panel.grey.lighten-5
-      = form_tag('/settings', method: :put) do
+  .row
+    = form_tag('/settings', method: :put) do
+      .card-panel.grey.lighten-5
         .row
-          .input-field.col-s12.black-text
-            %i.fa.fa-key.prefix
-            = text_field_tag :token, @user.token, class: 'validate'
-            = label_tag(:token, 'Token')
-        .row
-          = submit_tag 'Submit', class: 'btn yellow darken-4 pull-right'
+          .col.s6
+            .row.valign-wrapper
+              .col.s2
+                %img.circle.responsive-img{src: @user.avatar_url}
+              .col.s10
+                %span.black-text
+                  %h4= @user.name
+          .col.s6
+            .row
+              .input-field.col-s12.black-text
+                %i.fa.fa-key.prefix
+                = text_field_tag :token, @user.token, class: 'validate'
+                = label_tag(:token, 'Token')
+            .row
+              = submit_tag 'Submit', class: 'btn yellow darken-4 pull-right'
