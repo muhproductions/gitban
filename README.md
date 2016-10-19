@@ -1,4 +1,5 @@
 ![GitBanLogo](logo.png?raw=true)
+
 [![Code Climate](https://codeclimate.com/github/muhproductions/gitban/badges/gpa.svg)](https://codeclimate.com/github/muhproductions/gitban)
 [![security](https://hakiri.io/github/muhproductions/gitban/master.svg)](https://hakiri.io/github/muhproductions/gitban/master)
 [![Dependency Status](https://gemnasium.com/badges/github.com/muhproductions/gitban.svg)](https://gemnasium.com/github.com/muhproductions/gitban)
