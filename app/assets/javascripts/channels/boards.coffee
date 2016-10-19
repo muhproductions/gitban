@@ -1,6 +1,12 @@
-App.boards = App.cable.subscriptions.create "BoardsChannel",
+url = location.href
+board_id = url.substring(url.lastIndexOf('/') + 1)
+
+App.boards = App.cable.subscriptions.create {
+  channel: "BoardsChannel",
+  boardId: board_id
+  },
   connected: ->
-    @perform 'refresh', board: boardID
+    @perform 'refresh', board: window.boardID
     # Called when the subscription is ready for use on the server
 
   disconnected: ->
@@ -11,7 +17,7 @@ App.boards = App.cable.subscriptions.create "BoardsChannel",
     # Called when there's incoming data on the websocket for this channel
 
   moved: (board, task_id) ->
-    @perform 'modify', board: board, task_id: task_id
+    @perform 'modify', board: window.boardID, task_id: task_id
 
   refresh: (board) ->
-    @perform 'refresh', board: board
+    @perform 'refresh', board: window.boardID

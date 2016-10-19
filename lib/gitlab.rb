@@ -13,11 +13,11 @@ class Gitlab
     id = task.gitlab_id
     project_id = task.project.gitlab_id
 
-    if task.in_progress?
-      labels = (task.labels + ['in-progress']) unless task.labels.include?('in-progress')
-    else
-      labels = task.labels - ['in-progress']
-    end
+    labels = if task.in_progress?
+               (task.labels.to_a + ['in-progress']) unless task.labels.to_a.include?('in-progress')
+             else
+               task.labels.to_a - ['in-progress']
+             end.to_a
 
     if task.done?
       event = 'close'

@@ -1,16 +1,16 @@
 # Be sure to restart your server when you modify this file. Action Cable runs in a loop that does not support auto reloading.
 class BoardsChannel < ApplicationCable::Channel
   def subscribed
-    stream_from "boards"
+    stream_from "boards_#{params['boardId']}"
   end
 
   def modify(data)
-    ActionCable.server.broadcast('boards',
+    ActionCable.server.broadcast("boards_#{data['board']}",
       message: {html: render_board(Board.find(data['board']), data['task_id']), task_id: data['task_id']})
   end
 
   def refresh(data)
-    ActionCable.server.broadcast('boards',
+    ActionCable.server.broadcast("boards_#{data['board']}",
       message: {html: render_board(Board.find(data['board']), nil)})
   end
 
