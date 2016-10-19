@@ -69,7 +69,7 @@ class TasksController < ApplicationController
           )
           format.json { render json: @task }
         end
-        gitlab = Gitlab.new(api_url: ENV['API_URL'], token: ENV['TOKEN'])
+        gitlab = Gitlab.new(api_url: ENV['API_URL'], token: current_user.token)
         gitlab.update_gitlab_issue(@task)
       else
         unless request.xhr?
