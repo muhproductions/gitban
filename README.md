@@ -3,7 +3,6 @@
 [![Code Climate](https://codeclimate.com/github/muhproductions/gitban/badges/gpa.svg)](https://codeclimate.com/github/muhproductions/gitban)
 [![security](https://hakiri.io/github/muhproductions/gitban/master.svg)](https://hakiri.io/github/muhproductions/gitban/master)
 [![Dependency Status](https://gemnasium.com/badges/github.com/muhproductions/gitban.svg)](https://gemnasium.com/github.com/muhproductions/gitban)
-
 [![GitHub issues](https://img.shields.io/github/issues/muhproductions/gitban.svg)](https://github.com/muhproductions/gitban/issues)
 [![GitHub forks](https://img.shields.io/github/forks/muhproductions/gitban.svg)](https://github.com/muhproductions/gitban/network)
 [![GitHub stars](https://img.shields.io/github/stars/muhproductions/gitban.svg)](https://github.com/muhproductions/gitban/stargazers)
