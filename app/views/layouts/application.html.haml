@@ -39,8 +39,9 @@
               %li{class: cp("/tasks")}
                 %a.blue-text.text-darken-2{href: '/tasks'} Tasks
               %li
-                %i.fa.fa-user.fa-fw
-                = current_user.name
+                = link_to('/settings', class: 'blue-text text-darken-2') do
+                  %i.fa.fa-user.fa-fw
+                  = current_user.name
               %li
                 = link_to('Logout', destroy_user_session_path, method: :delete, class: 'blue-text text-darken-2')
               - if @no_footer
