@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161019100547) do
+ActiveRecord::Schema.define(version: 20161020081930) do
 
   create_table "assignees", force: :cascade do |t|
     t.string   "name"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20161019100547) do
     t.datetime "updated_at", null: false
     t.integer  "position"
     t.index ["board_id"], name: "index_columns_on_board_id"
+  end
+
+  create_table "filters", force: :cascade do |t|
+    t.string   "type"
+    t.string   "match"
+    t.integer  "column_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["column_id"], name: "index_filters_on_column_id"
   end
 
   create_table "milestones", force: :cascade do |t|
