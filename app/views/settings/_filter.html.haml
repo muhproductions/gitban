@@ -1,4 +1,6 @@
 %h5 Filter
+.grey-text
+  Filters will move unassigned task into the target column if the regexp matches
 %hr
 .col.s12
   = form_for @new_filter do |f|
@@ -22,8 +24,7 @@
         %tr
           %td
             .input-field
-              = f.label :type
-              = f.text_field :type
+              = f.select :type, @filter_types
           %td
             .input-field
               = f.label :match

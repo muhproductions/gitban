@@ -1,9 +1,12 @@
 class SettingsController < ApplicationController
 
   def index
-    @filters = Filter.all
     @user = current_user
+
     @new_filter = Filter.new
+    @filter_types = Filter::TYPES
+    @filters = Filter.all
+
     @grouped_options = Board.all.map{|b| [b.name, b.columns.map{|c| [c.name, c.id]}]}
   end
 

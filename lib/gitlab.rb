@@ -190,6 +190,22 @@ class Gitlab::Sync
               labels: issue['labels'],
               due_date: issue['due_date'])
     x
+    process_filter(x) unless x.column_id
+  end
+
+  def process_filter task
+    Filter.all.each do |filter|
+      regexp = Regexp.new filter.match
+      str = case filter.type
+              when 'namespace'
+                task.project.namespace
+              when 'project'
+                task.project.name
+              when 'title'
+                task.title
+              end
+      task.update! column_id: filter.column.id if str[regexp]
+    end
   end
 
   def logger
