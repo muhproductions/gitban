@@ -1,27 +1,26 @@
-.modal{id: "modal#{task.id}"}
+.modal.black-text{id: "modal#{task.id}"}
   .modal-content
-    %h3= task.title
+    %h3
+      %a{href: task.link}
+        %i.fa.fa-gitlab
+      = task.title
+
+      - task.labels.each do |label|
+        .chip.right.green= label
     .row
       .col.s3
         %h5
-          %i.fa.fa-pencil.fw
+          %i.fa.fa-fw.fa-pencil.fw
           Task
         .divider
         %ul
-          %li Title: #{task.title}
-          %li Labels: #{task.labels.inspect}
           %li State: #{task.state}
           %li Due date: #{task.due_date}
           %li Position: #{task.position}
           %li Column: #{task.column_id}
-          %li Gitlab ID: #{task.gitlab_id}
-          %li Gitlab IID: #{task.gitlab_internal_id}
-          %li
-            Link:
-            %a{href: task.link}= task.link
       .col.s3
         %h5
-          %i.fa.fa-code-fork.fw
+          %i.fa.fa-fw.fa-code-fork.fw
           Project
         .divider
         - if task.project
@@ -33,7 +32,7 @@
               %a{href: task.project.link}= task.project.link
       .col.s3
         %h5
-          %i.fa.fa-user.fw
+          %i.fa.fa-fw.fa-user.fw
           Assignee
         .divider
         - if task.assignee
@@ -43,7 +42,7 @@
             %li Image: #{task.assignee.image_path}
       .col.s3
         %h5
-          %i.fa.fa-calendar.fw
+          %i.fa.fa-fw.fa-calendar.fw
           Milestone
         .divider
         - if task.milestone
