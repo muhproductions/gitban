@@ -18,4 +18,8 @@ class Task < ApplicationRecord
     self.column.name == 'Done'
   end
 
+  def link
+    "#{self.project.link}/issues/#{self.gitlab_internal_id.gsub('#','')}"
+  end
+
 end
