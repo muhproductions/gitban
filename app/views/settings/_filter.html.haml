@@ -1,0 +1,36 @@
+%h5 Filter
+%hr
+.col.s12
+  = form_for @new_filter do |f|
+    %table
+      %thead
+        %tr
+          %th Type
+          %th Match
+          %th Target
+          %th
+      %tbody
+        - @filters.each do |filter|
+          %tr
+            %td= filter.type
+            %td= filter.match
+            %td= filter.column.name
+            %td
+              = link_to filter_path(filter), method: :delete do
+                .btn-floating.red
+                  %i.fa.fa-trash
+        %tr
+          %td
+            .input-field
+              = f.label :type
+              = f.text_field :type
+          %td
+            .input-field
+              = f.label :match
+              = f.text_field :match
+          %td
+            .input-field
+              = f.select :column_id, grouped_options_for_select(@grouped_options)
+          %td
+            = f.button class: 'btn-floating yellow darken-4' do
+              %i.fa.fa-plus

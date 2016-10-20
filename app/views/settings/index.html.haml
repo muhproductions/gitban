@@ -1,4 +1,18 @@
 .container
+  - if @user.is_admin
+    .row
+      .card-panel.grey.lighten-5
+        .row
+          .col.s5
+            .row.valign-wrapper
+              .col.s2.black-text
+                %i.fa.fa-3x.fa-cogs
+              .col.s10
+                %span.black-text
+                  %h4 Global Settings
+          .col.s7
+            .row.black-text
+              = render partial: 'filter'
   .row
     = form_tag('/settings', method: :put) do
       .card-panel.grey.lighten-5
