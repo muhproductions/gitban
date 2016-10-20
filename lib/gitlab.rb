@@ -188,6 +188,7 @@ class Gitlab::Sync
               project_id: project.try(:id),
               state: issue['state'],
               labels: issue['labels'],
+              description: issue['description'],
               due_date: issue['due_date'])
     x
     process_filter(x) unless x.column_id

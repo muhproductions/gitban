@@ -4,9 +4,9 @@
       %a{href: task.link}
         %i.fa.fa-fw.fa-gitlab
       = task.title
-
       - task.labels.each do |label|
         .chip.right.green= label
+      %hr
     .row
       .col.s3
         %h5
@@ -49,3 +49,4 @@
           %ul
             %li Name: #{task.milestone.title}
             %li Date: #{task.milestone.due_date}
+    %blockquote= task.description
