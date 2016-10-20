@@ -1,0 +1,5 @@
+class Filter < ApplicationRecord
+  belongs_to :column
+
+  Filter.inheritance_column = '_type'
+end

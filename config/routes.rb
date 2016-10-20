@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   resources :assignees
   resources :milestones
   resources :tasks
-  
+  resources :filters
   root to: 'welcome#index'
 
   get 'settings', to: 'settings#index' 
