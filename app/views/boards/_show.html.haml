@@ -54,6 +54,10 @@
                positions: pos},
         success: function(resp){
           App.boards.moved(#{@board.id}, task_id);
+        },
+        error: function(resp){
+          console.log(resp);
+          App.boards.refresh(#{@board.id});
         }
     });
     if(column_id == 0) {
