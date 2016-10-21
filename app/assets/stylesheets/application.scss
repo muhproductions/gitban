@@ -15,7 +15,6 @@
 @import "materialize";
 @import 'font-awesome';
 @import 'animate';
-@import 'dragula.min.css';
 body {
   display: flex;
   min-height: 100vh;
@@ -97,4 +96,19 @@ main {
 
 .tabs .indicator {
   background-color: #f44336;
+}
+
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
 }
