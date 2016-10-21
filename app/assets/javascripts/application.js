@@ -13,7 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require materialize-sprockets
-//= require dragula
 //= require_tree .
 
 $.fn.extend({

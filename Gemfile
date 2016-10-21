@@ -18,7 +18,6 @@ gem 'jquery-rails', '>= 1.0.4'
 gem 'jbuilder', '~> 2.5'
 
 gem 'materialize-sass'
-gem 'dragula-rails'
 gem "animate-rails"
 
 gem 'pry-rails'
