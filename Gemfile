@@ -15,6 +15,7 @@ gem 'devise', '~>4'
 gem 'omniauth-gitlab'
 
 gem 'jquery-rails', '>= 1.0.4'
+gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.5'
 
 gem 'materialize-sass'
