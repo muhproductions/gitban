@@ -18,49 +18,59 @@
 
 
             %hr
-          .drag{id: "col-#{column.id}"}
+          %ul.drag{id: "col-#{column.id}"}
             - column.tasks.order('position').each do |task|
-              = render partial: 'shared/task_card', locals: { task: task, animate: task_id}
+              %li
+                = render partial: 'shared/task_card', locals: { task: task, animate: task_id}
 
 :javascript
   $('.modal-trigger').leanModal();
-  var drake = dragula($('[id*=col]').toArray());
-  drake.on('drop', function(el, target, source, sibling){
 
-    // Update Task position
-    var task_id = el.id;
-    var task_position = $(el).index();
-    var column_id = target.id.substring(4);
+  $('[id*=col]').sortable({
+    connectWith: '.drag',
+    stop: function(ev, ui){
+      var el = ui.item[0].children[0];
+      var source = ev.target;
+      var target = $(el).parents().eq(1)[0]
 
-    var pos = {};
-    pos[target.id] = [];
-    pos[source.id] = [];
-    $(target).children().map(function(){
-      pos[target.id].push($(this).attr('id'));
-    });
-    if (source.id != target.id) {
-      $(source).children().map(function(){
-        pos[source.id].push($(this).attr('id'));
+      // Update Task position
+      var task_id = el.id;
+      var task_position = $(el).index();
+      var column_id = target.id.substring(4);
+
+      var pos = {};
+      pos[target.id] = [];
+      pos[source.id] = [];
+
+      $(target).children().map(function(){
+        var id = $(this).children()[0].id;
+        pos[target.id].push(id);
       });
-    }
+      if (source.id != target.id) {
+        $(source).children().map(function(){
+          var id = $(this).children()[0].id;
+          pos[source.id].push(id);
+        });
+      }
 
-    $.ajax({
-        url: "/tasks/" + task_id,
-        type: "PATCH",
-        data: {task: {
-                 position: task_position,
-                 column_id: column_id},
-               authenticity_token: '#{form_authenticity_token}',
-               positions: pos},
-        success: function(resp){
-          App.boards.moved(#{@board.id}, task_id);
-        },
-        error: function(resp){
-          console.log(resp);
-          App.boards.refresh(#{@board.id});
-        }
-    });
-    if(column_id == 0) {
-      $(el).remove();
+      $.ajax({
+          url: "/tasks/" + task_id,
+          type: "PATCH",
+          data: {task: {
+                   position: task_position,
+                   column_id: column_id},
+                 authenticity_token: '#{form_authenticity_token}',
+                 positions: pos},
+          success: function(resp){
+            App.boards.moved(#{@board.id}, task_id);
+          },
+          error: function(resp){
+            console.log(resp);
+            App.boards.refresh(#{@board.id});
+          }
+      });
+      if(column_id == -1) {
+        $(el).remove();
+      }
     }
   });
