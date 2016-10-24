@@ -54,7 +54,7 @@ class TasksController < ApplicationController
         task_data[:column_id] = task_data[:column_id].to_i
       end
       if @task.update(task_data)
-        source = Column.find(@task.column_id_previous_change.first)
+        source = Column.find((@task.column_id_previous_change.first rescue @task.column.id))
         unless request.xhr?
           format.html { redirect_back fallback_location: :tasks }
           format.json { render :show, status: :ok, location: @task }
