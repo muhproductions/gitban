@@ -1,4 +1,4 @@
-.card.hoverable.modal-trigger.black-text{id: task.id, href: "#modal#{task.id}"}
+.card.hoverable.black-text{id: task.id}
   .card-content
     %span.card-title.truncate.amber.lighten-3{title: task.title}
       = task.title
@@ -11,7 +11,7 @@
           .input-field.col.s2
             = f.button class: 'btn-floating waves-effect' do
               %i.fa.fa-plus
-  .card-action
+  .card-action.modal-trigger{href: "#modal#{task.id}"}
     %span.new.badge.z-depth-1{'data-badge-caption': '', class: task.state == 'opened' ? 'red' : 'blue'}
       %b= task.state
     - if task.assignee
