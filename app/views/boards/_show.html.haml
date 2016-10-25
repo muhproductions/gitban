@@ -1,4 +1,5 @@
 - @board = board
+- @current_user = user
 .board_flex
   - @board.columns.each do |column|
     %div.board_column
@@ -22,48 +23,51 @@
             - column.tasks.order('position').each do |task|
               %li
                 = render partial: 'shared/task_card', locals: { task: task, animate: task_id}
-          .red.center-align{id: "scrollable-#{column.id}", style: 'display: none;'}
-            %i.fa.fa-chevron-circle-down
-            &nbsp;
-            scroll down
-            &nbsp;
-            %i.fa.fa-chevron-circle-down
-          .green.center-align{id: "at-bottom-#{column.id}", style: 'display: none; visible: hidden;'}
-            %i.fa.fa-chevron-circle-up
-            &nbsp;
-            that's it
-            &nbsp;
-            %i.fa.fa-chevron-circle-up
+          - if @current_user.show_scroll_hint
+            .red.center-align{id: "scrollable-#{column.id}", style: 'display: none;'}
+              %i.fa.fa-chevron-circle-down
+              &nbsp;
+              scroll down
+              &nbsp;
+              %i.fa.fa-chevron-circle-down
+            .green.center-align{id: "at-bottom-#{column.id}", style: 'display: none; visible: hidden;'}
+              %i.fa.fa-chevron-circle-up
+              &nbsp;
+              that's it
+              &nbsp;
+              %i.fa.fa-chevron-circle-up
+
+- if @current_user.show_scroll_hint
+  :javascript
+    (function($) {
+      $.fn.hasScrollBar = function() {
+        return this.get(0).scrollHeight > this.height();
+      }
+    })(jQuery);
+
+    $('[id*=col]').map(function(i,e){
+      var id = e.id.substring(4);
+      if ($(e).hasScrollBar()) {
+        $('#scrollable-'+id).show()
+      }
+    });
+
+    $('[id*=col]').bind('scroll', check_if_bottom);
+
+    function check_if_bottom(e) {
+      var elem = $(e.currentTarget);
+      var id = elem[0].id.substring(4);
+      if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()) {
+        $('#scrollable-'+id).hide()
+        $('#at-bottom-'+id).show()
+      } else {
+        $('#scrollable-'+id).show()
+        $('#at-bottom-'+id).hide()
+      }
+    }
 
 :javascript
-  (function($) {
-    $.fn.hasScrollBar = function() {
-      return this.get(0).scrollHeight > this.height();
-    }
-  })(jQuery);
-
   $('.modal-trigger').leanModal();
-
-  $('[id*=col]').map(function(i,e){
-    var id = e.id.substring(4);
-    if ($(e).hasScrollBar()) {
-      $('#scrollable-'+id).show()
-    }
-  });
-
-  $('[id*=col]').bind('scroll', check_if_bottom);
-
-  function check_if_bottom(e) {
-    var elem = $(e.currentTarget);
-    var id = elem[0].id.substring(4);
-    if (elem[0].scrollHeight - elem.scrollTop() == elem.outerHeight()) {
-      $('#scrollable-'+id).hide()
-      $('#at-bottom-'+id).show()
-    } else {
-      $('#scrollable-'+id).show()
-      $('#at-bottom-'+id).hide()
-    }
-  }
 
   $('[id*=col]').sortable({
     connectWith: '.drag',

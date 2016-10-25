@@ -6,12 +6,18 @@ class BoardsChannel < ApplicationCable::Channel
 
   def modify(data)
     ActionCable.server.broadcast("boards_#{data['board']}",
-      message: {html: render_board(Board.find(data['board']), data['task_id']), task_id: data['task_id']})
+      message: {html: render_board(Board.find(data['board']),
+                                   data['task_id'],
+                                   current_user),
+                task_id: data['task_id']})
   end
 
   def refresh(data)
     ActionCable.server.broadcast("boards_#{data['board']}",
-      message: {html: render_board(Board.find(data['board']), nil)})
+      message: {html: render_board(Board.find(data['board']),
+                                   nil,
+                                   current_user)
+               })
   end
 
   def unsubscribed
@@ -20,8 +26,8 @@ class BoardsChannel < ApplicationCable::Channel
 
   private
 
-  def render_board(board, task_id)
+  def render_board(board, task_id, user)
     ApplicationController.render(partial: 'boards/show',
-                                 locals: { board: board, task_id: task_id})
+                                 locals: { board: board, task_id: task_id, user: user})
   end
 end
