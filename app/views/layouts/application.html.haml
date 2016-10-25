@@ -12,7 +12,7 @@
     = yield :script
     = favicon_link_tag
   %main{class: 'blue darken-4 white-text'}
-
+    = render partial: 'shared/profile_setup'
     %ul.dropdown-content#dropdown_boards
       %li
         = link_to 'All boards', '/boards'
@@ -68,3 +68,6 @@
             muhproductions
             %i.fa.fa-heart
             GitHub
+- unless @current_user.setup_complete? || current_page?('/settings')
+  :javascript
+    $('#profile-setup').openModal();

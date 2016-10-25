@@ -18,4 +18,8 @@ class User < ApplicationRecord
       user.password = Devise.friendly_token[0,20]
     end
   end
+
+  def setup_complete?
+    !(self.token.nil? || self.token.empty?)
+  end
 end
