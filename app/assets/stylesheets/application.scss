@@ -36,8 +36,13 @@ main {
 }
 
 .drag {
+  height: 80%;
+  overflow-y: scroll;
   min-height: 50px;
 }
+
+.drag::-webkit-scrollbar { width: 0 !important }
+
 .card .card-title {
   font-size: 18px;
   margin: 0px -8px;
