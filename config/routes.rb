@@ -6,10 +6,9 @@ Rails.application.routes.draw do
   resources :milestones
   resources :tasks
   resources :filters
-  root to: 'welcome#index'
+  resources :users
 
-  get 'settings', to: 'settings#index' 
-  put 'settings', to: 'settings#update'
+  root to: 'welcome#index'
 
   mount ActionCable.server => '/cable'
 

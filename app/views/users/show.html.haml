@@ -14,7 +14,7 @@
             .row.black-text
               = render partial: 'filter'
   .row
-    = form_tag('/settings', method: :put) do
+    = form_for(@user) do |f|
       .card-panel.grey.lighten-5
         .row
           .col.s6
@@ -24,11 +24,23 @@
               .col.s10
                 %span.black-text
                   %h4= @user.name
-          .col.s6
+          .col.s6.black-text
             .row
-              .input-field.col-s12.black-text
+              %h5 Basic
+              %hr
+            .row
+              .input-field.col-s12
                 %i.fa.fa-key.prefix
-                = text_field_tag :token, @user.token, class: 'validate'
-                = label_tag(:token, 'Token')
+                = f.text_field :token, class: 'validate'
+                = f.label(:token, 'Token')
             .row
-              = submit_tag 'Submit', class: 'btn yellow darken-4 pull-right'
+              %h5 Advanced
+              %hr
+              .input-field.col-s12
+                = f.check_box :show_scroll_hint
+                = f.label(:show_scroll_hint)
+              .input-field.col-s12
+                = f.check_box :is_admin, disabled: true
+                = f.label(:is_admin)
+            .row
+              = f.submit 'Submit', class: 'btn yellow darken-4 pull-right'

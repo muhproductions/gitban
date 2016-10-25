@@ -16,6 +16,7 @@ class User < ApplicationRecord
       user.is_admin = auth.is_admin
       user.state = auth.state
       user.password = Devise.friendly_token[0,20]
+      user.scroll_hint = true
     end
   end
 

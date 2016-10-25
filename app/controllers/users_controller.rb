@@ -1,6 +1,6 @@
-class SettingsController < ApplicationController
+class UsersController < ApplicationController
 
-  def index
+  def show
     @user = current_user
 
     @new_filter = Filter.new
@@ -18,7 +18,7 @@ class SettingsController < ApplicationController
   private
 
   def user_params
-    params.permit(:token)
+    params.require(:user).permit(:token, :show_scroll_hint)
   end
 
 end
