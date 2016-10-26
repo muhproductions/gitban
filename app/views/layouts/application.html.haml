@@ -6,7 +6,7 @@
     %meta{content: 'GitBan', name: :description}/
     %meta{content: 'width=device-width, initial-scale=1', name: 'viewport'}/
     %meta{content: '#4caf50', name: 'theme-color'}
-    %title= yield :title
+    %title GitBan - Kanban interface for GitLab that just works
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
     = javascript_tag "var AUTH_TOKEN = '#{form_authenticity_token}';" if protect_against_forgery?
