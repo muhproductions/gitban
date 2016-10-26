@@ -44,3 +44,15 @@
                 = f.label(:is_admin)
             .row
               = f.submit 'Submit', class: 'btn yellow darken-4 pull-right'
+  .row
+    .card-panel.grey.lighten-5.black-text
+      .row
+        %h5 About Gitban
+        %hr
+        %ul.collection
+          %li.collection-item
+            Version
+            .secondary-content=Rails.configuration.version
+          %li.collection-item
+            Environment
+            .secondary-content= Rails.env

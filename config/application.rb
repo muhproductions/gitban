@@ -12,5 +12,11 @@ module Gitban
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
     config.paths.add "lib", eager_load: true
+    if Rails.env.development?
+      File.open('config/version', 'w') do |file|
+        file.write `git describe --tags --always` # or equivalent
+      end
+    end
+    config.version = File.read('config/version')
   end
 end
