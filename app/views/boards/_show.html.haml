@@ -67,10 +67,18 @@
     }
 
 :javascript
+  $(document).ready(function() {
+    $('#search').hideseek();
+  });
+
   $('.modal-trigger').leanModal();
 
   $('[id*=col]').sortable({
     connectWith: '.drag',
+    start: function(ev, ui) {
+      $('li').show();
+      $('#search').val('');
+    },
     stop: function(ev, ui){
       var el = ui.item[0].children[0];
       var source = ev.target;

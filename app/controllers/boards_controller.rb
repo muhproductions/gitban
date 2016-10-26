@@ -11,6 +11,7 @@ class BoardsController < ApplicationController
   # GET /boards/1.json
   def show
     @no_footer = true
+    @show_search = true
   end
 
   # GET /boards/new
