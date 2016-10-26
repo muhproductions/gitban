@@ -1,11 +1,12 @@
-.modal.black-text{id: 'profile-setup'}
-  .modal-content
-    %h4= "Hey #{@current_user.name.split(' ').first}!"
-    %h5
-      %p Your profile is incomplete!
-      %blockquote
-        Please fill out all fields for your user.
-        This is necessary in order to don't mess up the GitLab.
-  .modal-footer
-    %a.modal-action.modal-close.waves-effect.waves-green.btn-flat{href: '/settings'}
-      Got to settings
+- if @current_user
+  .modal.black-text{id: 'profile-setup'}
+    .modal-content
+      %h4= "Hey #{@current_user.name.split(' ').first}!"
+      %h5
+        %p Your profile is incomplete!
+        %blockquote
+          Please fill out all fields for your user.
+          This is necessary in order to don't mess up the GitLab.
+    .modal-footer
+      %a.modal-action.modal-close.waves-effect.waves-green.btn-flat{href: '/settings'}
+        Got to settings

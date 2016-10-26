@@ -6,11 +6,13 @@ Rails.application.routes.draw do
   resources :milestones
   resources :tasks
   resources :filters
-  resources :users
 
   root to: 'welcome#index'
 
   mount ActionCable.server => '/cable'
 
   devise_for :users, :controllers => { :omniauth_callbacks => "callbacks" }
+
+  get 'users/:id', to: 'users#show', as: :user
+  patch 'users/:id', to: 'users#update'
 end
