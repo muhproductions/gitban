@@ -1,4 +1,4 @@
-- if @current_user
+- if @current_user && !@current_user.setup_complete?
   .modal.black-text{id: 'profile-setup'}
     .modal-content
       %h4= "Hey #{@current_user.name.split(' ').first}!"
