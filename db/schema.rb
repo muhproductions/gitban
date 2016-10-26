@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161025124540) do
+ActiveRecord::Schema.define(version: 20161026091925) do
 
   create_table "assignees", force: :cascade do |t|
     t.string   "name"
@@ -79,6 +79,7 @@ ActiveRecord::Schema.define(version: 20161025124540) do
     t.string   "gitlab_internal_id"
     t.string   "type"
     t.string   "description"
+    t.boolean  "is_acknowledged"
     t.index ["assignee_id"], name: "index_tasks_on_assignee_id"
     t.index ["column_id"], name: "index_tasks_on_column_id"
     t.index ["milestone_id"], name: "index_tasks_on_milestone_id"
