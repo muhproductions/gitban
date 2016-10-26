@@ -110,7 +110,7 @@
           data: {task: {
                    position: task_position,
                    column_id: column_id},
-                 authenticity_token: '#{form_authenticity_token}',
+                 authenticity_token: AUTH_TOKEN,
                  positions: pos},
           success: function(resp){
             App.boards.moved(#{@board.id}, task_id);
