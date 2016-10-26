@@ -72,6 +72,6 @@
             muhproductions
             %i.fa.fa-heart
             GitHub
-- unless !@current_user || @current_user.setup_complete? || current_page?('/settings')
+- unless !@current_user || @current_user.setup_complete? || current_page?("/users/#{@current_user.id}")
   :javascript
     $('#profile-setup').openModal();
