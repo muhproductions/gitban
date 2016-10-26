@@ -50,3 +50,8 @@
             %li Name: #{task.milestone.title}
             %li Date: #{task.milestone.due_date}
     %blockquote= task.description
+  - if task.state == 'closed' || task.state == 'merged'
+    .modal-footer
+      = form_for task do |f|
+        = f.hidden_field :is_acknowledged, value: true
+        = f.button 'Acknowledge task', class: 'btn modal-action'
