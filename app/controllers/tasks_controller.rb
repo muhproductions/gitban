@@ -32,44 +32,17 @@ class TasksController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      task_data = task_params
-      if task_data[:column_id] && task_data[:column_id].empty?
-        task_data[:column_id] = nil
-      elsif task_data[:column_id]
-        task_data[:column_id] = task_data[:column_id].to_i
-      end
-      if @task.update(task_data)
-        unless request.xhr?
-          redirect_back fallback_location: :tasks
-        else
-          begin
-            source = if @task.column_id_previous_change
-                       Column.find(@task.column_id_previous_change.first)
-                     elsif @task.column
-                       @task.column.id
-                     else
-                       nil
-                     end
-            ActionCable.server.broadcast(
-              'notifications',
-              dom_id: "##{@task.id}",
-              name: @task.title,
-              source: source.name,
-              destination: @task.column.name,
-              user: current_user.name
-            )
-          rescue
-          end
-          format.json { render json: @task }
-        end
-        gitlab = Gitlab.new(api_url: ENV['API_URL'], token: current_user.token)
-        gitlab.update_gitlab_issue(@task)
+    if @task.update(task_params)
+      unless request.xhr?
+        redirect_back fallback_location: :tasks
       else
-        unless request.xhr?
-          render :edit
-        end
+        broadcast_notification @task, current_user
+        render json: @task
       end
+      gitlab = Gitlab.new(api_url: ENV['API_URL'], token: current_user.token)
+      gitlab.update_gitlab_issue(@task)
+    else
+      render(:edit) unless request.xhr?
     end
   end
 
@@ -83,8 +56,36 @@ class TasksController < ApplicationController
       @task = Task.find(params[:id])
     end
 
+    def broadcast_notification(task, user)
+      source = if task.column_id_previous_change
+                 Column.find(task.column_id_previous_change.first)
+               elsif task.column
+                 task.column
+               else
+                 nil
+               end
+      ActionCable.server.broadcast(
+        'notifications',
+        dom_id: "##{task.id}",
+        name: task.title,
+        source: source.name,
+        destination: task.column.name,
+        user: user.name
+      )
+    end
+
     def task_params
-      params.require(:task).permit(:milestone_id, :assignee_id, :title, :link, :gitlab_id, :project_id, :state, :labels, :due_date, :position, :comments_id, :column_id, :is_acknowledged)
+      p = params.require(:task).permit(:milestone_id, :assignee_id, :title,
+                                       :link, :gitlab_id, :project_id, :state,
+                                       :labels, :due_date, :position,
+                                       :comments_id, :column_id,
+                                       :is_acknowledged)
+      if p[:column_id] && p[:column_id].empty?
+        p[:column_id] = nil
+      elsif p[:column_id]
+        p[:column_id] = p[:column_id].to_i
+      end
+      p
     end
 
     def resort
