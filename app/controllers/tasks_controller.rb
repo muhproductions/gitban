@@ -54,19 +54,28 @@ class TasksController < ApplicationController
         task_data[:column_id] = task_data[:column_id].to_i
       end
       if @task.update(task_data)
-        source = Column.find((@task.column_id_previous_change.first rescue @task.column.id))
         unless request.xhr?
           format.html { redirect_back fallback_location: :tasks }
           format.json { render :show, status: :ok, location: @task }
         else
-          ActionCable.server.broadcast(
-            'notifications',
-            dom_id: "##{@task.id}",
-            name: @task.title,
-            source: source.name,
-            destination: @task.column.name,
-            user: current_user.name
-          )
+          begin
+            source = if @task.column_id_previous_change
+                       Column.find(@task.column_id_previous_change.first)
+                     elsif @task.column
+                       @task.column.id
+                     else
+                       nil
+                     end
+            ActionCable.server.broadcast(
+              'notifications',
+              dom_id: "##{@task.id}",
+              name: @task.title,
+              source: source.name,
+              destination: @task.column.name,
+              user: current_user.name
+            )
+          rescue
+          end
           format.json { render json: @task }
         end
         gitlab = Gitlab.new(api_url: ENV['API_URL'], token: current_user.token)
@@ -98,7 +107,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:milestone_id, :assignee_id, :title, :link, :gitlab_id, :project_id, :state, :labels, :due_date, :position, :comments_id, :column_id)
+      params.require(:task).permit(:milestone_id, :assignee_id, :title, :link, :gitlab_id, :project_id, :state, :labels, :due_date, :position, :comments_id, :column_id, :is_acknowledged)
     end
 
     def resort

@@ -54,4 +54,5 @@
     .modal-footer
       = form_for task do |f|
         = f.hidden_field :is_acknowledged, value: true
+        = f.hidden_field :column_id, value: 0
         = f.button 'Acknowledge task', class: 'btn modal-action'

@@ -12,10 +12,14 @@ class Task < ApplicationRecord
 
   def in_progress?
     !!['Testing', 'In Progress'].include?(self.column.name)
+  rescue
+    false
   end
 
   def done?
     self.column.name == 'Done'
+  rescue
+    false
   end
 
   def link
