@@ -1,0 +1,8 @@
+version: '2'
+services:
+  gitban:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - /var/lib/gitban/db:/var/lib/gitban/db
