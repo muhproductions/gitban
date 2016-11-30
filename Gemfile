@@ -18,7 +18,7 @@ gem 'jquery-rails', '>= 1.0.4'
 gem 'jquery-ui-rails'
 gem 'jbuilder', '~> 2.5'
 
-gem 'materialize-sass'
+gem 'materialize-sass', '0.97.7'
 gem "animate-rails"
 
 gem 'pry-rails'
