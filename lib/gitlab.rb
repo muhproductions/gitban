@@ -19,10 +19,12 @@ class Gitlab
                task.labels.to_a - ['in-progress']
              end.to_a
 
-    if task.done?
+    if task.done? && task.state != 'closed'
       event = 'close'
-    else
+    elsif !task.done? && task.state == 'closed'
       event = 'reopen'
+    else
+      event = nil
     end
 
     task.update labels: labels
