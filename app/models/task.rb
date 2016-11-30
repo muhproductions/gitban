@@ -17,7 +17,7 @@ class Task < ApplicationRecord
   end
 
   def done?
-    self.column.name == 'Done'
+    self.column.name == 'Done' || self.column.id == 0
   rescue
     false
   end
